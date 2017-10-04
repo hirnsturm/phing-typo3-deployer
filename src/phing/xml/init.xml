@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    (c) 2017, Steve Lenz
+-->
+<project name="typo3-ci-init" default="init">
+
+    <!-- ============================================  -->
+    <!-- Target: init                                  -->
+    <!-- ============================================  -->
+    <target name="init"
+            description="Targets for initialization of project and environment configuration">
+        <echo>-------------------------------------------------------------------</echo>
+        <echo>Targets for initialization of project and environment configuration</echo>
+        <echo>-------------------------------------------------------------------</echo>
+        <phingcall target="init:env"/>
+        <echo/>
+    </target>
+
+    <!-- ============================================  -->
+    <!-- Target: init:shared                           -->
+    <!-- ============================================  -->
+    <target name="init:shared"
+            description="Creates directory structure for TYPO3 shared files and directories">
+        <echo>--------------------------------------------</echo>
+        <echo>Initialization of shared directory structure</echo>
+        <echo>--------------------------------------------</echo>
+        <phingcall target="service:mkdir">
+            <property name="dir"
+                      value="${shared.dir}"/>
+        </phingcall>
+        <phingcall target="service:mkdir">
+            <property name="dir"
+                      value="${shared.typo3conf}"/>
+        </phingcall>
+        <phingcall target="service:move">
+            <property name="from"
+                      value="${release.current.fileadmin}"/>
+            <property name="to"
+                      value="${shared.fileadmin}"/>
+        </phingcall>
+        <phingcall target="service:symlink">
+            <property name="title"
+                      value="Create Symlink for 'fileadmin'"/>
+            <property name="target"
+                      value="${shared.fileadmin}"/>
+            <property name="link"
+                      value="${release.current.fileadmin}"/>
+        </phingcall>
+        <phingcall target="service:move">
+            <property name="from"
+                      value="${release.current.uploads}"/>
+            <property name="to"
+                      value="${shared.uploads}"/>
+        </phingcall>
+        <phingcall target="service:symlink">
+            <property name="title"
+                      value="Create Symlink for 'uploads'"/>
+            <property name="target"
+                      value="${shared.uploads}"/>
+            <property name="link"
+                      value="${release.current.uploads}"/>
+        </phingcall>
+        <phingcall target="service:move">
+            <property name="from"
+                      value="${release.current.LocalConfiguration_php}"/>
+            <property name="to"
+                      value="${shared.typo3conf.LocalConfiguration_php}"/>
+        </phingcall>
+        <phingcall target="service:symlink">
+            <property name="title"
+                      value="Create Symlink for 'LocalConfiguration.php'"/>
+            <property name="target"
+                      value="${shared.typo3conf.LocalConfiguration_php}"/>
+            <property name="link"
+                      value="${release.current.LocalConfiguration_php}"/>
+        </phingcall>
+
+        <phingcall target="hook:ci:shared:create-custom-shared-data"/>
+        <echo/>
+    </target>
+
+</project>

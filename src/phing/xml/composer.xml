@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    (c) 2017, Steve Lenz
+-->
+<project name="typo3-ci-composer" default="composer">
+
+    <!-- ============================================  -->
+    <!-- Target: composer                              -->
+    <!-- ============================================  -->
+    <target name="composer"
+            description=""
+            hidden="true">
+        <echo>----------------</echo>
+        <echo>Composer targets</echo>
+        <echo>----------------</echo>
+    </target>
+
+    <!-- ============================================  -->
+    <!-- Target: composer:install                      -->
+    <!-- ============================================  -->
+    <target name="composer:install"
+            description="Performs 'composer install' in given working directory. (Arguments: working-dir=[string], dry-run=1)"
+            hidden="true">
+        <echo>-----------------------------</echo>
+        <echo>Install composer dependencies</echo>
+        <echo>-----------------------------</echo>
+        <phingcall target="composer:run"
+                   inheritAll="true">
+            <property name="command"
+                      value="install"/>
+            <property name="working-dir"
+                      value="${working-dir}"/>
+            <property name="no-dev"
+                      value="1"/>
+            <property name="dry-run"
+                      value="${dry-run}"/>
+        </phingcall>
+        <echo/>
+    </target>
+
+    <!-- ============================================  -->
+    <!-- Target: composer:update                       -->
+    <!-- ============================================  -->
+    <target name="composer:update"
+            description="Performs 'composer update' in given working directory. (Arguments: working-dir=[string], dry-run=1)"
+            hidden="true">
+        <echo>----------------------------</echo>
+        <echo>Update composer dependencies</echo>
+        <echo>----------------------------</echo>
+        <phingcall target="composer:run"
+                   inheritAll="true">
+            <property name="command"
+                      value="update"/>
+            <property name="working-dir"
+                      value="${working-dir}"/>
+            <property name="dry-run"
+                      value="${dry-run}"/>
+        </phingcall>
+        <echo/>
+    </target>
+
+    <!-- ============================================  -->
+    <!-- Target: composer:run                          -->
+    <!-- ============================================  -->
+    <target name="composer:run"
+            description="Runs composer command by configuration (Arguments: command=[install|update], working-dir=[string], dry-run=[0|1], no-dev=[0|1])"
+            hidden="true">
+        <!-- check command-->
+        <if>
+            <not>
+                <isset property="command"/>
+            </not>
+            <then>
+                <echo level="error">Missing composer command.</echo>
+                <fail message="Exit"/>
+            </then>
+        </if>
+        <!-- check working-dir -->
+        <if>
+            <or>
+                <not><isset property="working-dir" /></not>
+                <and>
+                    <isset property="working-dir" />
+                    <equals arg1="${working-dir}" arg2="" />
+                </and>
+            </or>
+            <then>
+                <property name="working-dir-cmd"
+                          value="--working-dir=${typo3.dir}"/>
+            </then>
+            <else>
+                <property name="working-dir-cmd"
+                          value="--working-dir=${working-dir}"/>
+            </else>
+        </if>
+        <echo>working-dir: ${working-dir}</echo>
+        <!-- check option dry-run -->
+        <if>
+            <and>
+                <isset property="dry-run"/>
+                <equals arg1="${dry-run}"
+                        arg2="1" />
+            </and>
+            <then>
+                <property name="dry-run-cmd"
+                          value="--dry-run"/>
+                <echo>dry-run-cmd: ${dry-run-cmd}</echo>
+            </then>
+            <else>
+                <property name="dry-run-cmd"
+                          value=""/>
+            </else>
+        </if>
+        <!-- check option no-dev -->
+        <if>
+            <and>
+                <isset property="no-dev"/>
+                <equals arg1="${no-dev}"
+                        arg2="1" />
+            </and>
+            <then>
+                <property name="no-dev-cmd"
+                          value="--no-dev"/>
+                <echo>no-dev-cmd: ${no-dev-cmd}</echo>
+            </then>
+            <else>
+                <property name="no-dev-cmd"
+                          value=""/>
+            </else>
+        </if>
+        <!-- run -->
+        <composer command="${command}"
+                  composer="${cmd.composer}"
+                  php="${cmd.php}">
+            <arg value="${dry-run-cmd}"/>
+            <arg value="${no-dev-cmd}"/>
+            <arg value="--prefer-dist"/>
+            <arg value="--no-interaction"/>
+            <arg value="--optimize-autoloader"/>
+            <arg value="--profile"/>
+            <arg value="--verbose"/>
+            <arg value="${working-dir-cmd}"/>
+        </composer>
+    </target>
+
+</project>

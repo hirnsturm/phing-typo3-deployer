@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    (c) 2017, Steve Lenz
+-->
+<project name="typo3-ci-service" default="service">
+
+    <!-- ============================================  -->
+    <!-- Target: service                               -->
+    <!-- ============================================  -->
+    <target name="service"
+            description="Default task"
+            hidden="true">
+        <echo>------------------------------</echo>
+        <echo>Continuous integration targets</echo>
+        <echo>------------------------------</echo>
+    </target>
+
+    <!-- ============================================  -->
+    <!-- Target: service:mkdir                         -->
+    <!-- ============================================  -->
+    <target name="service:mkdir"
+            description="Creates given directory if not exists (Arguments: dir=[directory path])">
+        <if>
+            <not>
+                <isset property="dir"/>
+            </not>
+            <then>
+                <echo level="error"/>
+                <echo level="error">Missing argument 'dir'!</echo>
+                <echo level="error"/>
+            </then>
+            <else>
+                <echo>Create ${dir} if not exists</echo>
+                <if>
+                    <available file="${dir}"
+                               property="dir.available"/>
+                    <then>
+                        <echo>-> Directory ${dir} already exists!</echo>
+                    </then>
+                    <else>
+                        <mkdir dir="${dir}"/>
+                    </else>
+                </if>
+            </else>
+        </if>
+    </target>
+
+    <!-- ============================================  -->
+    <!-- Target: service:move                         -->
+    <!-- ============================================  -->
+    <target name="service:move"
+            description="(Arguments: from=[from directory], to=[to direcotory])">
+        <echo>Move ${from} to ${to}</echo>
+        <if>
+            <not>
+                <available file="${from}"
+                           property="from.available"/>
+            </not>
+            <then>
+                <echo level="warning"/>
+                <echo level="warning">-> Nothing to do:</echo>
+                <echo level="warning">-> File or directory '${from}' does not exist!</echo>
+                <echo level="warning"/>
+            </then>
+            <else>
+                <exec command="mv ${from} ${to}"
+                      logoutput="true"/>
+            </else>
+        </if>
+    </target>
+
+    <!-- ============================================  -->
+    <!-- Target: service:symlink                       -->
+    <!-- ============================================  -->
+    <target name="service:symlink"
+            description="Create symlink if target exists (Arguments: link=[directory path], target=[directory path], title=[string])">
+        <if>
+            <isset property="title"/>
+            <then>
+                <echo>${title}</echo>
+            </then>
+        </if>
+        <if>
+            <not>
+                <or>
+                    <isset property="link"/>
+                    <isset property="target"/>
+                </or>
+            </not>
+            <then>
+                <echo level="error"/>
+                <echo level="error">Missing argument 'link' or 'target'!</echo>
+                <echo level="error"/>
+            </then>
+            <else>
+                <echo>Check target ${target}</echo>
+                <if>
+                    <not>
+                        <available file="${target}"
+                                   property="target.available"/>
+                    </not>
+                    <then>
+                        <echo level="warning"/>
+                        <echo level="warning">-> Target ${target} does't exists!</echo>
+                        <echo level="warning"/>
+                    </then>
+                    <else>
+                        <echo>-> Target ${target} exists</echo>
+                        <exec command="rm -r ${link}"
+                              passthru="true"
+                              logoutput="true"/>
+                        <echo>Create symlink ${link} -> ${target}</echo>
+                        <symlink link="${link}"
+                                 target="${target}"
+                                 overwrite="true"/>
+                    </else>
+                </if>
+            </else>
+        </if>
+    </target>
+
+    <!-- ============================================  -->
+    <!-- Target: service:check-dir                     -->
+    <!-- ============================================  -->
+    <target name="service:check-dir"
+            description="Checks whether given directory exists and fail in error (Arguments: dir=[directory path])">
+        <if>
+            <not>
+                <isset property="dir"/>
+            </not>
+            <then>
+                <echo level="error"/>
+                <echo level="error">Missing argument 'dir'!</echo>
+                <echo level="error"/>
+            </then>
+            <else>
+                <echo>Check directory ${dir}</echo>
+                <if>
+                    <or>
+                        <available file="${dir}"
+                                   property="dir.available"/>
+                    </or>
+                    <then>
+                        <echo>-> Is available!</echo>
+                    </then>
+                    <else>
+                        <echo level="error">-> Is not available!</echo>
+                        <echo level="error"/>
+                        <fail message="Exit"/>
+                    </else>
+                </if>
+            </else>
+        </if>
+    </target>
+
+</project>

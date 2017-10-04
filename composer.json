@@ -1,0 +1,23 @@
+{
+    "name": "sle/phing-typo3-deployer",
+    "description": "Phing Installer Test",
+    "type": "composer",
+    "require": {
+        "composer-plugin-api": "^1.1",
+        "phing/phing": "^2.16",
+        "composer/composer": "^1.4",
+        "symfony/filesystem": "^3.2"
+    },
+    "authors": [
+        {
+            "name": "hirnsturm",
+            "email": "github@steve-lenz.de"
+        }
+    ],
+    "minimum-stability": "stable",
+    "autoload": {
+        "psr-4": {
+            "Sle\\PhingTypo3Deployer\\": "src/"
+        }
+    }
+}

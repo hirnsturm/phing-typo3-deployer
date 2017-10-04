@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    (c) 2017, Steve Lenz
+-->
+<project name="typo3-ci-bootstrap" default="bootstrap">
+
+    <!-- ============================================  -->
+    <!-- Import properties                             -->
+    <!-- ============================================  -->
+    <property file="./build.env.properties"
+              logoutput="false"/>
+    <property file="${src.dir}/config/build.properties"
+              logoutput="false"/>
+    <property file="./build.custom.properties"
+              logoutput="false"/>
+
+    <!-- ============================================  -->
+    <!-- Import targets                                -->
+    <!-- ============================================  -->
+    <import file="${src.dir}/xml/service.xml"/>
+    <import file="${src.dir}/xml/env.xml"/>
+    <import file="${config.build_hook_xml}"/>
+    <import file="${src.dir}/xml/init.xml"/>
+    <import file="${src.dir}/xml/composer.xml"/>
+    <import file="${src.dir}/xml/ci.xml"/>
+
+    <!-- ============================================  -->
+    <!-- Target: copyright                             -->
+    <!-- ============================================  -->
+    <target name="copyright"
+            description="Copyright information">
+        <echo level="warning">=======================================================</echo>
+        <echo level="warning">|                                                     |</echo>
+        <echo level="warning">| Phing TYPO3 Deployer - Copyright 2017 by Steve Lenz |</echo>
+        <echo level="warning">|                                                     |</echo>
+        <echo level="warning">=======================================================</echo>
+    </target>
+
+    <!-- ============================================  -->
+    <!-- Target: help                             -->
+    <!-- ============================================  -->
+    <target name="help"
+            description="List available targets">
+        <phingcall target="copyright"/>
+        <phingcall target="env"/>
+        <echo/>
+        <exec executable="bin/phing"
+              passthru="true">
+            <arg value="-l"/>
+        </exec>
+    </target>
+
+</project>

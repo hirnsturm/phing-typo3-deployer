@@ -1,0 +1,6 @@
+build.env.properties
+build.xml
+bin
+shared
+vendor
+releases

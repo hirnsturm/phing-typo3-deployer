@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    (c) 2017, Steve Lenz
+-->
+<project name="typo3-ci-hook" default="hook">
+
+    <!-- ============================================  -->
+    <!-- Target: hook                                  -->
+    <!-- ============================================  -->
+    <target name="hook"
+            description="Hooks"
+            hidden="true">
+        <echo>-----</echo>
+        <echo>Hooks</echo>
+        <echo>-----</echo>
+    </target>
+
+    <!-- Target:  -->
+    <!-- ================================================  -->
+    <!-- Target: hook:ci:release:before-release-new-build  -->
+    <!-- ================================================  -->
+    <target name="hook:ci:release:before-release-new-build"
+            description="Before release new build tasks">
+        <echo>--------------------------------------</echo>
+        <echo>Execute before release new build tasks</echo>
+        <echo>--------------------------------------</echo>
+    </target>
+
+    <!-- ============================================  -->
+    <!-- Target: hook:ci:release:post                  -->
+    <!-- ============================================  -->
+    <target name="hook:ci:release:post"
+            description="Pre-Release tasks">
+        <echo>-------------------------</echo>
+        <echo>Execute pre release tasks</echo>
+        <echo>-------------------------</echo>
+    </target>
+
+    <!-- ============================================  -->
+    <!-- Target: hook:ci:release:post                  -->
+    <!-- ============================================  -->
+    <target name="hook:ci:release:post"
+            description="Post-Release tasks">
+        <echo>--------------------------</echo>
+        <echo>Execute post release tasks</echo>
+        <echo>--------------------------</echo>
+    </target>
+
+    <!-- ================================================  -->
+    <!-- Target: hook:ci:shared:create-custom-shared-data  -->
+    <!-- ================================================  -->
+    <target name="hook:ci:shared:create-custom-shared-data"
+            description="Creates custom shared data">
+        <echo>--------------------------</echo>
+        <echo>Create custom shared files</echo>
+        <echo>--------------------------</echo>
+        <phingcall target="service:move">
+            <property name="from"
+                      value="${release.current.PackageStates_php}}"/>
+            <property name="to"
+                      value="${shared.typo3conf.PackageStates_php"/>
+        </phingcall>
+    </target>
+
+    <!-- ==============================================  -->
+    <!-- Target: hook:ci:shared:link-custom-shared-data  -->
+    <!-- ==============================================  -->
+    <target name="hook:ci:shared:link-custom-shared-data"
+            description="Link custom shared data">
+        <echo>------------------------</echo>
+        <echo>Link custom shared files</echo>
+        <echo>------------------------</echo>
+        <phingcall target="service:symlink">
+            <property name="title"
+                      value="Create Symlink for 'PackageStates.php'"/>
+            <property name="target"
+                      value="${shared.typo3conf.PackageStates_php}"/>
+            <property name="link"
+                      value="${release.next.PackageStates_php}"/>
+        </phingcall>
+    </target>
+
+</project>

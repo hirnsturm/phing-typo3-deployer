@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    (c) 2017, Steve Lenz
+-->
+<project name="typo3-ci" default="help">
+
+    <!-- ============================================  -->
+    <!-- Create properties                            -->
+    <!-- ============================================  -->
+    <property name="src.dir"
+              value="vendor/sle/phing-typo3-deployer/src/phing"/>
+
+    <!-- ============================================  -->
+    <!-- Import bootstrap                                -->
+    <!-- ============================================  -->
+    <import file="${src.dir}/xml/bootstrap.xml"/>
+
+</project>

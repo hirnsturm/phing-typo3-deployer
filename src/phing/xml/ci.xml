@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    (c) 2017, Steve Lenz
+-->
+<project name="typo3-ci-ci" default="ci">
+
+    <!-- ============================================  -->
+    <!-- Target: ci                                    -->
+    <!-- ============================================  -->
+    <target name="ci"
+            description=""
+            hidden="true">
+        <echo>------------------------------</echo>
+        <echo>Continuous integration targets</echo>
+        <echo>------------------------------</echo>
+    </target>
+
+    <!-- ============================================  -->
+    <!-- Target: ci:release                            -->
+    <!-- ============================================  -->
+    <target name="ci:release"
+            description="Creates a new release">
+        <phingcall target="copyright"/>
+        <phingcall target="env"/>
+        <echo>-------------------</echo>
+        <echo>Build a new release</echo>
+        <echo>-------------------</echo>
+        <phingcall target="hook:ci:release:post"/>
+        <!---->
+        <phingcall target="service:mkdir">
+            <property name="dir"
+                      value="${release.dir}"/>
+        </phingcall>
+        <echo>Delete old ${release.next} if exist</echo>
+        <exec command="rm -rf ${release.next}"
+              logoutput="true"/>
+        <echo>Copy ${typo3.dir} to ${release.next}</echo>
+        <copy todir="${release.next}"
+              overwrite="true">
+            <fileset dir="${typo3.dir}"></fileset>
+        </copy>
+        <phingcall target="service:mkdir">
+            <property name="dir"
+                      value="${release.next.typo3conf}"/>
+        </phingcall>
+        <echo>----------------</echo>
+        <echo>Link shared data</echo>
+        <echo>----------------</echo>
+        <if>
+            <not>
+                <available file="${shared.dir}"
+                           property="shared.dir.available"/>
+            </not>
+            <then>
+                <echo level="error"/>
+                <echo level="error">-> Directory 'shared' is missing! (${shared.dir})</echo>
+                <echo level="error">-> Create '${shared.dir}' by execution of command 'init:shared' after TYPO3 installation
+                </echo>
+                <echo level="error"/>
+            </then>
+            <else>
+                <phingcall target="service:symlink">
+                    <property name="title"
+                              value="Create Symlink for 'LocalConfiguration.php'"/>
+                    <property name="target"
+                              value="${shared.typo3conf.LocalConfiguration_php}"/>
+                    <property name="link"
+                              value="${release.next.LocalConfiguration_php}"/>
+                </phingcall>
+                <phingcall target="service:symlink">
+                    <property name="title"
+                              value="Create Symlink for 'PackageStates.php'"/>
+                    <property name="target"
+                              value="${shared.typo3conf.PackageStates_php}"/>
+                    <property name="link"
+                              value="${release.next.PackageStates_php}"/>
+                </phingcall>
+                <phingcall target="service:symlink">
+                    <property name="title"
+                              value="Create Symlink for 'uploads'"/>
+                    <property name="target"
+                              value="${shared.uploads}"/>
+                    <property name="link"
+                              value="${release.next.uploads}"/>
+                </phingcall>
+                <phingcall target="service:symlink">
+                    <property name="title"
+                              value="Create Symlink for 'fileadmin'"/>
+                    <property name="target"
+                              value="${shared.fileadmin}"/>
+                    <property name="link"
+                              value="${release.next.fileadmin}"/>
+                </phingcall>
+            </else>
+        </if>
+        <echo/>
+        <phingcall target="hook:ci:shared:link-custom-shared-data"/>
+        <echo/>
+        <!---->
+        <phingcall target="composer:install">
+            <property name="working-dir"
+                      value="${release.next}"/>
+        </phingcall>
+        <!---->
+        <phingcall target="hook:ci:release:before-release-new-build"/>
+        <echo/>
+        <echo>-----------------</echo>
+        <echo>Release new build</echo>
+        <echo>-----------------</echo>
+        <echo>Remove ${release.previous}</echo>
+        <delete dir="${release.previous}"
+                failonerror="false"/>
+        <phingcall target="service:move">
+            <property name="from"
+                      value="${release.current}"/>
+            <property name="to"
+                      value="${release.previous}"/>
+        </phingcall>
+        <echo>Remove ${release.current}</echo>
+        <delete dir="${release.current}"
+                failonerror="false"/>
+        <phingcall target="service:move">
+            <property name="from"
+                      value="${release.next}"/>
+            <property name="to"
+                      value="${release.current}"/>
+        </phingcall>
+        <echo/>
+        <phingcall target="hook:ci:release:post"/>
+        <echo/>
+        <echo>=======================</echo>
+        <echo>Build has been released</echo>
+        <echo>=======================</echo>
+    </target>
+
+    <!-- ============================================  -->
+    <!-- Target: ci:collback                           -->
+    <!-- ============================================  -->
+    <target name="ci:rollback"
+            description="Rollback to previous release - Not implemented yet!">
+        <phingcall target="copyright"/>
+        <phingcall target="env"/>
+        <echo level="warning">--------------------------------</echo>
+        <echo level="warning">Rollback is not implemented yet!</echo>
+        <echo level="warning">--------------------------------</echo>
+    </target>
+
+</project>
