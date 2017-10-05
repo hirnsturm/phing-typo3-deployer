@@ -3,6 +3,27 @@
 
 # Inhalt
 
+* [Einleitung](#einleitung)
+    * [Was ist das Ziel dieses Pakets?](#was-ist-das-ziel-dieses-pakets)
+    * [Voraussetzungen](#voraussetzungen)
+    * [Projektstruktur](#projektstruktur)
+* [Einrichtung eines neuen Projekts](#einrichtung-eines-neuen-projekts)
+* [Einrichtung des Projekts auf dem Zielsystem](#einrichtung-des-projekts-auf-dem-zielsystem)
+    * [Einrichtung für die automatisierte Veröffentlichung](#einrichtung-für-die-automatisierte-veröffentlichung)
+* [Hooks](#hooks)
+* [Properties](#properties)
+    * [Globale Properties](#globale-properties)
+    * [Eigene Properties](#eigene-properties)
+* [FAQ](#faq)
+    * [Verfügbare Befehle](#verfügbare-befehle)
+    * [Auflistung aller verfügbaren Kommandos](#auflistung-aller-verfügbaren-kommandos)
+    * [Lokale Entwicklung](#lokale-entwicklung)
+    * [Wie erstellt man ein neues Release?](#wie-erstellt-man-ein-neues-release)
+    * [Jenkins Projekt Konfiguration](#jenkins-projekt-konfiguration)
+    * [RSYNC Konfiguration](#rsync-konfiguration)
+* [Todo](#todo)
+
+
 
 ## Einleitung
 
@@ -29,6 +50,7 @@ releases/
     next/
 shared/
 typo3/
+    composer.json
 vendor/
 .gitignore
 build.custom.properties
@@ -80,6 +102,7 @@ composer.lock
     bin/
     vendor/
     typo3/
+        composer.json
     .gitignore
     build.custom.properties
     build.env.properties
@@ -102,6 +125,7 @@ composer.lock
     ```bash
     .gitignore
     typo3/
+        composer.json
     build.custom.properties
     build.hook.xml
     composer.json
@@ -122,12 +146,14 @@ Für die korrekte Einrichtung auf dem Zielsystem sind folgende Schritte erforder
 
 1. Projektdatein auf das Zielsystem kopieren
 
-    Die Projektdateien, die sich in der Versionskontrolle befinden, müssen auf das
+    Die Projektdateien bzw. Verzeichnisse, die sich in der Versionskontrolle befinden, müssen auf das
     Zielsystem kopiert werden. Die Verzeichnisstruktur sieht nun wie folgt aus:
 
     ```bash
     .gitignore -> Muss nicht mit auf dem Zielsystem installiert werden
     typo3/
+        composer.json
+        composer.lock
     build.custom.properties
     build.hook.xml
     composer.json
@@ -191,82 +217,6 @@ Bei der Synchronisation müssen folgende Dateien aktualisiert werden:
     composer.json
     composer.lock
     ```
-
-## FAQ
-
-### Verfügbare Befehle
-
-#### Auflistung aller verfügbaren Kommandos
-
-    ```bash
-    $ bin/phing
-    ```
-
-## Lokale Entwicklung
-Die lokale Entwicklung findet im Verzeichnis *htdocs/typo3* statt.
-Die komplette Verzeichnisstruktur nach der installation sieht wie folgt aus:
-
-```bash
-bin/
-typo3/
-    vendor/
-    web/
-    composer.json
-    composer.lock
-vendor/
-.gitignore
-build.custom.properties
-build.env.properties
-build.hook.xml
-build.xml
-composer.json
-composer.lock
-```
-
-Der vHost sollte auf *typo3/web* zeigen.
-
-### Wie erstellt man ein neues Release?
-
-```bash
-$ bin/phing ci:release
-```
-
-### Jenkins Projekt Konfiguration
-
-* Folgende Dateien müssen synchronisiert werden
-
-    ```bash
-    typo3/
-    build.custom.properties
-    build.hook.xml
-    composer.json
-    composer.lock
-    ```
-
-* Neues Release mit Hilfe der Remote-Shell erstellen
-
-   ```bash
-   $ ssh <user>@<server>
-   <server>$ cd <webroot>/<project>
-   <server>/<webroot>/<project>$ composer install
-   <server>/<webroot>/<project>$ bin/phing ci:release
-   ```
-### RSYNC Konfiguration
-
-```bash
-# Sync
-rsync --delete -aze ssh --iconv=UTF-8 $WORKSPACE/typo3 <USER>@<SERVER>:/<WEB_ROOT>/<PROJECT>/
-rsync --delete -aze ssh --iconv=UTF-8 $WORKSPACE/layoutbuilder <USER>@<SERVER>:/<WEB_ROOT>/<PROJECT>/
-rsync --delete -aze ssh --iconv=UTF-8 $WORKSPACE/build.custom.properties <USER>@<SERVER>:/<WEB_ROOT>/<PROJECT>/build.custom.properties
-rsync --delete -aze ssh --iconv=UTF-8 $WORKSPACE/build.hook.xml <USER>@<SERVER>:/<WEB_ROOT>/<PROJECT>/build.hook.xml
-rsync --delete -aze ssh --iconv=UTF-8 $WORKSPACE/composer.json <USER>@<SERVER>:/<WEB_ROOT>/<PROJECT>/composer.json
-rsync --delete -aze ssh --iconv=UTF-8 $WORKSPACE/composer.lock <USER>@<SERVER>:/<WEB_ROOT>/<PROJECT>/composer.lock
-# Excludes
-rsync --exclude=.gitignore -aze ssh --iconv=UTF-8 $WORKSPACE <USER>@<SERVER>:/<WEB_ROOT>/<PROJECT>/
-rsync --exclude=build.env.properties -aze ssh --iconv=UTF-8 $WORKSPACE/htdocs <USER>@<SERVER>:/<WEB_ROOT>/<PROJECT>/
-rsync --exclude=shared -aze ssh --iconv=UTF-8 $WORKSPACE <USER>@<SERVER>:/<WEB_ROOT>/<PROJECT>/
-rsync --exclude=releases -aze ssh --iconv=UTF-8 $WORKSPACE <USER>@<SERVER>:/<WEB_ROOT>/<PROJECT>/
-```
 
 ## Hooks
 Alle Verfügbaren Hooks befinden sich in der Datei `build.hook.xml`.
@@ -332,7 +282,83 @@ typo3.web.dir = ${typo3.dir}/web
 
 Eigene Properties können in der Datei `build.custom.properties` hinterlegt werden und stehen in den Hooks zur Verfügung.
 
+## FAQ
+
+### Verfügbare Befehle
+
+#### Auflistung aller verfügbaren Kommandos
+
+    ```bash
+    $ bin/phing
+    ```
+
+### Lokale Entwicklung
+Die lokale Entwicklung findet im Verzeichnis *htdocs/typo3* statt.
+Die komplette Verzeichnisstruktur nach der installation sieht wie folgt aus:
+
+```bash
+bin/
+typo3/
+    vendor/
+    web/
+    composer.json
+    composer.lock
+vendor/
+.gitignore
+build.custom.properties
+build.env.properties
+build.hook.xml
+build.xml
+composer.json
+composer.lock
+```
+
+Der vHost sollte auf *typo3/web* zeigen.
+
+### Wie erstellt man ein neues Release?
+
+```bash
+$ bin/phing ci:release
+```
+
+### Jenkins Projekt Konfiguration
+
+* Folgende Dateien müssen synchronisiert werden
+
+    ```bash
+    typo3/
+    build.custom.properties
+    build.hook.xml
+    composer.json
+    composer.lock
+    ```
+
+* Neues Release mit Hilfe der Remote-Shell erstellen
+
+   ```bash
+   $ ssh <user>@<server>
+   <server>$ cd <webroot>/<project>
+   <server>/<webroot>/<project>$ composer install
+   <server>/<webroot>/<project>$ bin/phing ci:release
+   ```
+
+### RSYNC Konfiguration
+
+```bash
+# Sync
+rsync --delete -aze ssh --iconv=UTF-8 $WORKSPACE/typo3 <USER>@<SERVER>:/<WEB_ROOT>/<PROJECT>/
+rsync --delete -aze ssh --iconv=UTF-8 $WORKSPACE/layoutbuilder <USER>@<SERVER>:/<WEB_ROOT>/<PROJECT>/
+rsync --delete -aze ssh --iconv=UTF-8 $WORKSPACE/build.custom.properties <USER>@<SERVER>:/<WEB_ROOT>/<PROJECT>/build.custom.properties
+rsync --delete -aze ssh --iconv=UTF-8 $WORKSPACE/build.hook.xml <USER>@<SERVER>:/<WEB_ROOT>/<PROJECT>/build.hook.xml
+rsync --delete -aze ssh --iconv=UTF-8 $WORKSPACE/composer.json <USER>@<SERVER>:/<WEB_ROOT>/<PROJECT>/composer.json
+rsync --delete -aze ssh --iconv=UTF-8 $WORKSPACE/composer.lock <USER>@<SERVER>:/<WEB_ROOT>/<PROJECT>/composer.lock
+# Excludes
+rsync --exclude=.gitignore -aze ssh --iconv=UTF-8 $WORKSPACE <USER>@<SERVER>:/<WEB_ROOT>/<PROJECT>/
+rsync --exclude=build.env.properties -aze ssh --iconv=UTF-8 $WORKSPACE/htdocs <USER>@<SERVER>:/<WEB_ROOT>/<PROJECT>/
+rsync --exclude=shared -aze ssh --iconv=UTF-8 $WORKSPACE <USER>@<SERVER>:/<WEB_ROOT>/<PROJECT>/
+rsync --exclude=releases -aze ssh --iconv=UTF-8 $WORKSPACE <USER>@<SERVER>:/<WEB_ROOT>/<PROJECT>/
+```
+
 ## Todo
-- Dokumentation testen und ggf. weiter verfeinern
 - Rollback implementieren
 - Prozesse visualisieren
