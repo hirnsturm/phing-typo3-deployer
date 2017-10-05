@@ -94,33 +94,7 @@ composer.lock
     $ bin/phing init
     ```
 
-4. TYPO3 Verzeichnis erstellen
-
-    Die TYPO3 Instanz __muss__ via Composer im Verzechnis *typo3* installierert werden. Hierfür __muss__ die
-    TYPO3-*composer.json* in das Verzeichnis *typo3* abgelegt werden, denn dieses Verzeichnis ist die Grundlage für
-    den auszuliefernden Quellcode.
-
-    ```bash
-    $ mkdir typo3
-    ```
-
-    Die Projektstruktur sieht nun wie folgt aus:
-
-    ```bash
-    bin/
-    typo3/
-        composer.json
-    vendor/
-    .gitignore
-    build.custom.properties
-    build.env.properties
-    build.hook.xml
-    build.xml
-    composer.json
-    composer.lock
-    ```
-
-5. Dateien zur Versionkonstrolle hinzufügen
+4. Dateien zur Versionkonstrolle hinzufügen
 
     Folgende Dateien müssen zur Versionskontrolle hinzugefügt werden:
 
