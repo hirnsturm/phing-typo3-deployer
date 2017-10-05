@@ -128,7 +128,7 @@ class Scripts
             $fs->mkdir($typo3Dir);
             $fs->copy(
                 static::$phingDist . '/typo3_composer.json',
-                $typo3Dir. 'composer.json',
+                $typo3Dir. '/composer.json',
                 true
             );
         }
