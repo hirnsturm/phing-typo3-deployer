@@ -1,4 +1,5 @@
 # Phing TYPO3 Deployer
+*[Copyright 2017 by Steve Lenz](./LICENSE)*
 
 # Inhalt
 
