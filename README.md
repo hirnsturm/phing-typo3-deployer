@@ -79,6 +79,7 @@ composer.lock
     ```bash
     bin/
     vendor/
+    typo3/
     .gitignore
     build.custom.properties
     build.env.properties
