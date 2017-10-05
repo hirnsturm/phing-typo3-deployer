@@ -124,8 +124,12 @@ class Scripts
          * Create 'typo3' if not exist
          */
         if (false === $fs->exists(static::$rootDir . '/typo3')) {
-            $fs->mkdir(
-                static::$rootDir . '/typo3'
+            $typo3Dir = static::$rootDir . '/typo3';
+            $fs->mkdir($typo3Dir);
+            $fs->copy(
+                static::$phingDist . '/typo3_composer.json',
+                $typo3Dir. 'composer.json',
+                true
             );
         }
     }
