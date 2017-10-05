@@ -46,7 +46,7 @@ class Scripts
         /** @var IOInterface io */
         static::$io = $event->getIO();
 
-        static::$phingDist = __DIR__ . '/../../src/phing/dist';
+        static::$phingDist = dirname(dirname(__DIR__)) . '/src/phing/dist';
         static::$rootDir = dirname(static::$composer->getConfig()->get('vendor-dir'));
     }
 
