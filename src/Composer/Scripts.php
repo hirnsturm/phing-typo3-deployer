@@ -12,7 +12,7 @@ use Symfony\Component\Filesystem\Filesystem;
  *
  * @author Steve Lenz <kontakt@steve-lenz.de>
  * @copyright Steve Lenz
- * @package Sle\Phing\Composer
+ * @package Sle\PhingTypo3Deployer\Composer
  */
 class Scripts
 {
