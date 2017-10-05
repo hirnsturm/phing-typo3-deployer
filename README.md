@@ -1,7 +1,7 @@
 # Phing TYPO3 Deployer
 *[Copyright 2017 by Steve Lenz](./LICENSE)*
 
-# Inhalt
+## Inhalt
 
 * [Einleitung](#einleitung)
     * [Was ist das Ziel dieses Pakets?](#was-ist-das-ziel-dieses-pakets)
@@ -22,8 +22,6 @@
     * [Jenkins Projekt Konfiguration](#jenkins-projekt-konfiguration)
     * [RSYNC Konfiguration](#rsync-konfiguration)
 * [Todo](#todo)
-
-
 
 ## Einleitung
 
