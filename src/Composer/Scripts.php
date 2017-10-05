@@ -76,7 +76,7 @@ class Scripts
         $fs = new Filesystem();
 
         /**
-         * Create 'build.xml' if not exist
+         * Create/overwrite 'build.xml'
          */
         $fs->copy(
             static::$phingDist . '/build.xml',
