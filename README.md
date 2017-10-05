@@ -275,6 +275,22 @@ $ bin/phing ci:release
    <server>/<webroot>/<project>$ composer install
    <server>/<webroot>/<project>$ bin/phing ci:release
    ```
+### RSYNC Konfiguration
+```bash
+# Sync
+rsync --delete -aze ssh --iconv=UTF-8 $WORKSPACE/typo3 <USER>@<SERVER>:/<WEB_ROOT>/<PROJECT>/
+rsync --delete -aze ssh --iconv=UTF-8 $WORKSPACE/layoutbuilder <USER>@<SERVER>:/<WEB_ROOT>/<PROJECT>/
+rsync --delete -aze ssh --iconv=UTF-8 $WORKSPACE/build.custom.properties <USER>@<SERVER>:/<WEB_ROOT>/<PROJECT>/build.custom.properties
+rsync --delete -aze ssh --iconv=UTF-8 $WORKSPACE/build.hook.xml <USER>@<SERVER>:/<WEB_ROOT>/<PROJECT>/build.hook.xml
+rsync --delete -aze ssh --iconv=UTF-8 $WORKSPACE/composer.json <USER>@<SERVER>:/<WEB_ROOT>/<PROJECT>/composer.json
+rsync --delete -aze ssh --iconv=UTF-8 $WORKSPACE/composer.lock <USER>@<SERVER>:/<WEB_ROOT>/<PROJECT>/composer.lock
+# Excludes
+rsync --exclude=.gitignore -aze ssh --iconv=UTF-8 $WORKSPACE <USER>@<SERVER>:/<WEB_ROOT>/<PROJECT>/
+rsync --exclude=build.env.properties -aze ssh --iconv=UTF-8 $WORKSPACE/htdocs <USER>@<SERVER>:/<WEB_ROOT>/<PROJECT>/
+rsync --exclude=shared -aze ssh --iconv=UTF-8 $WORKSPACE <USER>@<SERVER>:/<WEB_ROOT>/<PROJECT>/
+rsync --exclude=releases -aze ssh --iconv=UTF-8 $WORKSPACE <USER>@<SERVER>:/<WEB_ROOT>/<PROJECT>/
+
+```
 
 ## Hooks
 Alle Verfügbaren Hooks befinden sich in der Datei *build.hook.xml*.
