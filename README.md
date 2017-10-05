@@ -61,7 +61,7 @@ composer.lock
 
 ## Einrichtung eines neuen Projekts
 
-1. *composer.json* im Webroot (htdocs-Verzeichnis) des Projekts erstellen
+1. `composer.json` im Webroot (htdocs-Verzeichnis) des Projekts erstellen
 
     ```json
     {
@@ -116,7 +116,7 @@ composer.lock
     $ bin/phing init
     ```
 
-4. Dateien zur Versionkonstrolle hinzufügen
+4. Dateien zur Versionskontrolle hinzufügen
 
     Folgende Dateien müssen zur Versionskontrolle hinzugefügt werden:
 
@@ -164,9 +164,9 @@ Für die korrekte Einrichtung auf dem Zielsystem sind folgende Schritte erforder
     $ composer install
     ```
 
-3. Erstes Release veröffentlichen
+3. Initiales Release veröffentlichen
 
-    Das Verzeichnis mit der akteullen Version befindet sich unter *releases/current*.
+    Das Verzeichnis mit der akteullen Version befindet sich unter `releases/current/`.
     damit dieses erstellt werden kann, muss folgender Befehl ausgeführt werden:
 
     ```bash
@@ -181,12 +181,12 @@ Für die korrekte Einrichtung auf dem Zielsystem sind folgende Schritte erforder
     build.env.properties
     ```
 
-    In das Verzeichnis *releases/current/* werden die Daten aus dem Verzeichnis *typo3* Kompiert und *composer install* ausgeführt.
-    In der Datei *build.env.properties* können die Umgebungsvariablen ggf. umkonfiguriert werden.
+    In das Verzeichnis `releases/current/` werden die Daten aus dem Verzeichnis `typo3` kopiert und `composer install` ausgeführt.
+    In der Datei `build.env.properties` können die Umgebungsvariablen ggf. umkonfiguriert werden.
 
 4. vHost konfigurieren
 
-    Der vHost muss auf das Verzeichnis *<project-root>/releases/current/web* zeigen.
+    Der vHost muss auf das Verzeichnis `<project-root>/releases/current/web` zeigen.
 
 5. TYPO3 CMS auf dem Zielsystem installieren
 
@@ -201,7 +201,7 @@ Für die korrekte Einrichtung auf dem Zielsystem sind folgende Schritte erforder
     $ bin/phing init:shared
     ```
 
-    Hierbei werden die *LocalConfiguration.php* (ggf. auch *PackageStates.php*) sowie die Verzeichnisse *fileadmin* und *uploads* in das Verzeichnis *shared* kopiert, da diese immer gleich bleiben und somit für zukünftigen Releases zentral zur Verfügung stehen. Zudem werden die originale durch Symlinks ersetzt.
+    Hierbei werden die `LocalConfiguration.php` (ggf. auch `PackageStates.php`) sowie die Verzeichnisse `fileadmin` und `uploads` in das Verzeichnis `shared` kopiert, da diese immer gleich bleiben und somit für zukünftigen Releases zentral zur Verfügung stehen. Zudem werden die originale durch Symlinks ersetzt.
 
 ### Einrichtung für die automatisierte Veröffentlichung
 
@@ -311,7 +311,7 @@ composer.json
 composer.lock
 ```
 
-Der vHost sollte auf *typo3/web* zeigen.
+Der vHost sollte auf `typo3/web` zeigen.
 
 ### Wie erstellt man ein neues Release?
 
