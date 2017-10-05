@@ -3,18 +3,27 @@
     "description": "Phing TYPO3 Deployer is an easy to use powerfull deployment tool for TYPO3 CMS",
     "license": "MIT",
     "type": "composer",
+    "authors": [
+        {
+            "name": "Steve Lenz",
+            "email": "kontakt@steve-lenz.de"
+        }
+    ],
+    "config": {
+        "vendor-dir": "vendor",
+        "bin-dir": "bin",
+        "classmap-authoritative": true
+    },
     "require": {
         "composer-plugin-api": "^1.1",
         "phing/phing": "^2.16",
         "composer/composer": "^1.4",
-        "symfony/filesystem": "^3.2"
+        "symfony/filesystem": "^3.2",
+        "sensiolabs/security-checker": "^4.1"
     },
-    "authors": [
-        {
-            "name": "hirnsturm",
-            "email": "github@steve-lenz.de"
-        }
-    ],
+    "scripts": {
+        "post-update-cmd": "@php bin/security-checker security:check"
+    },
     "minimum-stability": "stable",
     "autoload": {
         "psr-4": {
