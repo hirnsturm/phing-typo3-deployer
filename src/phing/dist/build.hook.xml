@@ -56,9 +56,9 @@
         <echo>--------------------------</echo>
         <phingcall target="service:move">
             <property name="from"
-                      value="${release.current.PackageStates_php}}"/>
+                      value="${release.current.PackageStates_php}"/>
             <property name="to"
-                      value="${shared.typo3conf.PackageStates_php"/>
+                      value="${shared.typo3conf.PackageStates_php}"/>
         </phingcall>
     </target>
 
