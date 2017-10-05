@@ -76,7 +76,7 @@ class Scripts
         $fs = new Filesystem();
 
         /**
-         * Copy build.xml
+         * Create 'build.xml' if not exist
          */
         $fs->copy(
             static::$phingDist . '/build.xml',
@@ -85,7 +85,7 @@ class Scripts
         );
 
         /**
-         * Copy .gitignore
+         * Create '.gitignore' if not exist
          */
         $fs->copy(
             static::$phingDist . '/_.gitignore',
@@ -94,7 +94,7 @@ class Scripts
         );
 
         /**
-         * Create if not exist build.env.properties
+         * Create 'build.env.properties' if not exist
          */
         $fs->copy(
             static::$phingDist . '/build.env.properties',
@@ -103,7 +103,7 @@ class Scripts
         );
 
         /**
-         * Create if not exist build.hook.xml
+         * Create 'build.hook.xml' if not exist
          */
         $fs->copy(
             static::$phingDist . '/build.hook.xml',
@@ -112,13 +112,22 @@ class Scripts
         );
 
         /**
-         * Create if not exist build.custom.properties
+         * Create 'build.custom.properties' if not exist
          */
         $fs->copy(
             static::$phingDist . '/build.custom.properties',
             static::$rootDir . '/build.custom.properties',
             false
         );
+
+        /**
+         * Create 'typo3' if not exist
+         */
+        if (false === $fs->exists(static::$rootDir . '/typo3')) {
+            $fs->mkdir(
+                static::$rootDir . '/typo3'
+            );
+        }
     }
 
 }
