@@ -4,3 +4,10 @@ bin
 shared
 vendor
 releases
+
+#
+# TYPO3
+#
+typo3
+!typo3/composer.json
+!typo3/composer.lock
