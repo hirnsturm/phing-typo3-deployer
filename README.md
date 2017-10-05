@@ -190,12 +190,12 @@ Für die korrekte Einrichtung auf dem Zielsystem sind folgende Schritte erforder
 
 5. TYPO3 CMS auf dem Zielsystem installieren
 
-    Nun muss das TYPO3 CMS auf dem Zielsystem initial installiert werden. Die kann über
-    den TYPO3 Install Wizard erfolgen.
+    Nun muss das TYPO3 CMS auf dem Zielsystem initial installiert werden. Dies kann über
+    den TYPO3 Install Wizard oder die *typo3_console* erfolgen.
 
 6. Zentrale Ablage der gemeinsamen Dateien
 
-    Nun werden die gemeinsamen Dateien (shared data) zentral abgelegt:
+    Die gemeinsamen Dateien (shared data) muss nun noch zentral abgelegt, damit sie für zukünftige Releases verfügbar sind:
 
     ```bash
     $ bin/phing init:shared
