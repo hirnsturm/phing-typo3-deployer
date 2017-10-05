@@ -1,6 +1,7 @@
 {
     "name": "sle/phing-typo3-deployer",
-    "description": "Phing Installer Test",
+    "description": "Phing TYPO3 Deployer is an easy to use powerfull deployment tool for TYPO3 CMS",
+    "license": "MIT",
     "type": "composer",
     "require": {
         "composer-plugin-api": "^1.1",
