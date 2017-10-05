@@ -122,7 +122,7 @@ composer.lock
 
 5. Dateien zur Versionkonstrolle hinzufügen
 
-    Folgende Datein müssen zur Versionskontrolle (hier wird Git genutzt) hinzugefügt werden:
+    Folgende Dateien müssen zur Versionskontrolle hinzugefügt werden:
 
     ```bash
     .gitignore
@@ -277,6 +277,7 @@ $ bin/phing ci:release
    <server>/<webroot>/<project>$ bin/phing ci:release
    ```
 ### RSYNC Konfiguration
+
 ```bash
 # Sync
 rsync --delete -aze ssh --iconv=UTF-8 $WORKSPACE/typo3 <USER>@<SERVER>:/<WEB_ROOT>/<PROJECT>/
@@ -290,14 +291,73 @@ rsync --exclude=.gitignore -aze ssh --iconv=UTF-8 $WORKSPACE <USER>@<SERVER>:/<W
 rsync --exclude=build.env.properties -aze ssh --iconv=UTF-8 $WORKSPACE/htdocs <USER>@<SERVER>:/<WEB_ROOT>/<PROJECT>/
 rsync --exclude=shared -aze ssh --iconv=UTF-8 $WORKSPACE <USER>@<SERVER>:/<WEB_ROOT>/<PROJECT>/
 rsync --exclude=releases -aze ssh --iconv=UTF-8 $WORKSPACE <USER>@<SERVER>:/<WEB_ROOT>/<PROJECT>/
-
 ```
 
 ## Hooks
-Alle Verfügbaren Hooks befinden sich in der Datei *build.hook.xml*.
+Alle Verfügbaren Hooks befinden sich in der Datei `build.hook.xml`.
+
+## Properties
+
+### Globale Properties
+
+```
+#
+# This file contains basic build configurations
+#
+# (c) 2017, Steve Lenz
+#
+config.build_hook_xml = ${base.dir}/build.hook.xml
+
+release.dir = ${base.dir}/releases
+release.current = ${release.dir}/current
+release.previous  = ${release.dir}/previous
+release.next = ${release.dir}/next
+
+#
+# Next
+#
+release.next.web = ${release.next}/web
+release.next.typo3conf = ${release.next.web}/typo3conf
+release.next.LocalConfiguration_php = ${release.next.typo3conf}/LocalConfiguration.php
+release.next.PackageStates_php = ${release.next.typo3conf}/PackageStates.php
+release.next.fileadmin = ${release.next.web}/fileadmin
+release.next.uploads = ${release.next.web}/uploads
+
+#
+# Current
+#
+release.current.web = ${release.current}/web
+release.current.typo3conf = ${release.current.web}/typo3conf
+release.current.LocalConfiguration_php = ${release.current.typo3conf}/LocalConfiguration.php
+release.current.PackageStates_php = ${release.current.typo3conf}/PackageStates.php
+release.current.fileadmin = ${release.current.web}/fileadmin
+release.current.uploads = ${release.current.web}/uploads
+
+#
+# Shared
+#
+shared.dir = ${base.dir}/shared
+shared.typo3conf = ${shared.dir}/typo3conf
+shared.typo3conf.LocalConfiguration_php = ${shared.typo3conf}/LocalConfiguration.php
+shared.typo3conf.PackageStates_php = ${shared.typo3conf}/PackageStates.php
+shared.fileadmin = ${shared.dir}/fileadmin
+shared.uploads = ${shared.dir}/uploads
+
+#
+# TYPO3
+#
+typo3.dir = ${base.dir}/typo3
+typo3.composer.json = composer.json
+config.typo3.env = ${typo3.dir}/.env
+typo3.web.dir = ${typo3.dir}/web
+
+```
+
+### Eigene Properties
+
+Eigene Properties können in der Datei `build.custom.properties` hinterlegt werden und stehen in den Hooks zur Verfügung.
 
 ## Todo
 - Dokumentation testen und ggf. weiter verfeinern
 - Rollback implementieren
 - Prozesse visualisieren
-- Bsp. Rsync-Konfiguration für Deployment dokumentieren
