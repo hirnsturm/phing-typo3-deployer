@@ -2,7 +2,7 @@
     "name": "sle/phing-typo3-deployer",
     "description": "Phing TYPO3 Deployer is an easy to use powerfull deployment tool for TYPO3 CMS",
     "license": "MIT",
-    "type": "composer",
+    "type": "project",
     "authors": [
         {
             "name": "Steve Lenz",
