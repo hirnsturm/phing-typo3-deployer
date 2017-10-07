@@ -195,7 +195,7 @@ Für die korrekte Einrichtung auf dem Zielsystem sind folgende Schritte erforder
 
 6. Zentrale Ablage der gemeinsamen Dateien
 
-    Die gemeinsamen Dateien (shared data) muss nun noch zentral abgelegt, damit sie für zukünftige Releases verfügbar sind:
+    Die gemeinsamen Dateien (shared data) müssen nun noch zentral abgelegt werden, damit sie für zukünftige Releases verfügbar sind:
 
     ```bash
     $ bin/phing init:shared
