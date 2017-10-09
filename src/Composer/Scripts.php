@@ -93,8 +93,8 @@ class Scripts
          * Create '.gitignore' if not exists
          */
         static::copyIfNotExists(
-            static::$rootDir . '/_.gitignore',
-            static::$phingDist . '/.gitignore'
+            static::$rootDir . '/.gitignore',
+            static::$phingDist . '/_.gitignore'
         );
 
         /**
