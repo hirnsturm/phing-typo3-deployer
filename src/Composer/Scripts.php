@@ -27,6 +27,11 @@ class Scripts
     protected static $io;
 
     /**
+     * @var Filesystem
+     */
+    protected static $fs;
+
+    /**
      * @var string
      */
     protected static $rootDir = '';
@@ -45,6 +50,8 @@ class Scripts
         static::$composer = $event->getComposer();
         /** @var IOInterface io */
         static::$io = $event->getIO();
+        /** @var Filesystem fs */
+        static::$fs = new Filesystem();
 
         static::$phingDist = dirname(dirname(__DIR__)) . '/src/phing/dist';
         static::$rootDir = dirname(static::$composer->getConfig()->get('vendor-dir'));
@@ -73,63 +80,71 @@ class Scripts
      */
     protected static function copyFiles()
     {
-        $fs = new Filesystem();
-
         /**
          * Create/overwrite 'build.xml'
          */
-        $fs->copy(
+        static::$fs->copy(
             static::$phingDist . '/build.xml',
             static::$rootDir . '/build.xml',
             true
         );
 
         /**
-         * Create '.gitignore' if not exist
+         * Create '.gitignore' if not exists
          */
-        $fs->copy(
-            static::$phingDist . '/_.gitignore',
-            static::$rootDir . '/.gitignore',
-            false
+        static::copyIfNotExists(
+            static::$rootDir . '/_.gitignore',
+            static::$phingDist . '/.gitignore'
         );
 
         /**
-         * Create 'build.env.properties' if not exist
+         * Create 'build.env.properties' if not exists
          */
-        $fs->copy(
-            static::$phingDist . '/build.env.properties',
+        static::copyIfNotExists(
             static::$rootDir . '/build.env.properties',
-            false
+            static::$phingDist . '/build.env.properties'
         );
 
         /**
-         * Create 'build.hook.xml' if not exist
+         * Create 'build.hook.xml' if not exists
          */
-        $fs->copy(
-            static::$phingDist . '/build.hook.xml',
+        static::copyIfNotExists(
             static::$rootDir . '/build.hook.xml',
-            false
+            static::$phingDist . '/build.hook.xml'
         );
 
         /**
-         * Create 'build.custom.properties' if not exist
+         * Create 'build.custom.properties' if not exists
          */
-        $fs->copy(
-            static::$phingDist . '/build.custom.properties',
+        static::copyIfNotExists(
             static::$rootDir . '/build.custom.properties',
-            false
+            static::$phingDist . '/build.custom.properties'
         );
 
         /**
-         * Create 'typo3' if not exist
+         * Create 'typo3' and 'typo3/composer.json' if not exists
          */
-        if (false === $fs->exists(static::$rootDir . '/typo3')) {
+        if (false === static::$fs->exists(static::$rootDir . '/typo3')) {
             $typo3Dir = static::$rootDir . '/typo3';
-            $fs->mkdir($typo3Dir);
-            $fs->copy(
+            static::$fs->mkdir($typo3Dir);
+            static::$fs->copy(
                 static::$phingDist . '/typo3_composer.json',
-                $typo3Dir. '/composer.json',
+                $typo3Dir . '/composer.json',
                 true
+            );
+        }
+    }
+
+    /**
+     * @param string $target Target filename with path
+     * @param string $source Source filename with path
+     */
+    private static function copyIfNotExists($target, $source)
+    {
+        if (false === static::$fs->exists($target)) {
+            static::$fs->copy(
+                $source,
+                $target
             );
         }
     }
