@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [0.4.0] - 2017-10-09
+### Added
+- [Task] Add typo3console tasks for ci:release
+- [Task] Installation of basic rsync excludes.txt
+
+### Changed
+- [Bugfix] Wrong path for 'bin/typo3cms'
+- [Bugfix] .gitignore installation fails, because file 'src/phing/dist/_.gitignore' does not exists
+- [Task] Improved installer with better check for targets
+- [Doc] Fix misspelling
+
 ## [0.3.0] - 2017-10-06
 ### Added
 - [Task] Add TYPO3 composer.json and installation if not exists
