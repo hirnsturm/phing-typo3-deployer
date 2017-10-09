@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    (c) 2017, Steve Lenz
+-->
+<project name="typo3-ci-typo3console" default="typo3console">
+
+    <!-- ============================================  -->
+    <!-- Target: typo3console-before-release                          -->
+    <!-- ============================================  -->
+    <target name="typo3console-before-release"
+            description="Runs basic before release typo3console tasks (see https://github.com/TYPO3-Console/TYPO3-Console)">
+        <echo>-------------------------------------------</echo>
+        <echo>Run pre release typo3console CLI (typo3cms)</echo>
+        <echo>-------------------------------------------</echo>
+        <echo>Flush Cache</echo>
+        <exec command="${cmd.php} ${typo3console.path.next} cache:flush"
+              logoutput="true"/>
+        <echo>Fix Folderstructure</echo>
+        <exec command="${cmd.php} ${typo3console.path.next} install:fixfolderstructure"
+              logoutput="true"/>
+        <echo>Update TYPO3 Database</echo>
+        <exec command="${cmd.php} ${typo3console.path.next} database:updateschema"
+              logoutput="true"/>
+        <echo>Update Languages</echo>
+        <exec command="${cmd.php} ${typo3console.path.next} language:update"
+              logoutput="true"/>
+        <echo>Run Scheduler</echo>
+        <exec command="${cmd.php} ${typo3console.path.next} scheduler:run"
+              logoutput="true"/>
+        <echo>Lock backend</echo>
+        <exec command="${cmd.php} ${typo3console.path.current} backend:lock --admin-only"
+              logoutput="true"/>
+    </target>
+
+    <!-- ============================================  -->
+    <!-- Target: typo3console-post-release             -->
+    <!-- ============================================  -->
+    <target name="typo3console-post-release"
+            description="Runs basic post release typo3console tasks (see https://github.com/TYPO3-Console/TYPO3-Console)">
+        <echo>--------------------------------------------</echo>
+        <echo>Run post release typo3console CLI (typo3cms)</echo>
+        <echo>--------------------------------------------</echo>
+        <echo>Unlock backend</echo>
+        <exec command="${cmd.php} ${typo3console.path.previous} backend:unlock"
+              logoutput="true"/>
+    </target>
+
+</project>

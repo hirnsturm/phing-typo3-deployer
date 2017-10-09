@@ -102,6 +102,7 @@
                       value="${release.next}"/>
         </phingcall>
         <!---->
+        <phingcall target="typo3console-before-release"/>
         <phingcall target="hook:ci:release:before-release-new-build"/>
         <echo/>
         <echo>-----------------</echo>
@@ -126,6 +127,7 @@
                       value="${release.current}"/>
         </phingcall>
         <echo/>
+        <phingcall target="typo3console-post-release"/>
         <phingcall target="hook:ci:release:post"/>
         <echo/>
         <echo>=======================</echo>

@@ -18,6 +18,7 @@
     <!-- Import targets                                -->
     <!-- ============================================  -->
     <import file="${src.dir}/xml/service.xml"/>
+    <import file="${src.dir}/xml/typo3console.xml"/>
     <import file="${src.dir}/xml/env.xml"/>
     <import file="${config.build_hook_xml}"/>
     <import file="${src.dir}/xml/init.xml"/>

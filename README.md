@@ -278,6 +278,12 @@ typo3.composer.json = composer.json
 config.typo3.env = ${typo3.dir}/.env
 typo3.web.dir = ${typo3.dir}/web
 
+#
+# typo3console (https://github.com/TYPO3-Console/TYPO3-Console)
+#
+typo3console.path.next = ${release.next}/vendor/bin/typo3cms
+typo3console.path.current = ${release.current}/vendor/bin/typo3cms
+typo3console.path.previous = ${release.previous}/vendor/bin/typo3cms
 ```
 
 ### Eigene Properties
