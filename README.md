@@ -126,6 +126,8 @@ composer.lock
 
     ```bash
     .gitignore
+    rsync/
+        excludes.txt
     typo3/
         composer.json
     build.custom.properties
