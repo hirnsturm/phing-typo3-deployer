@@ -133,6 +133,18 @@ class Scripts
                 true
             );
         }
+        /**
+         * Create 'rsync' and 'rsync/excludes.txt' if not exists
+         */
+        if (false === static::$fs->exists(static::$rootDir . '/rsync')) {
+            $rsyncDir = static::$rootDir . '/rsync';
+            static::$fs->mkdir($rsyncDir);
+            static::$fs->copy(
+                static::$phingDist . '/rsync_excludes.txt',
+                $rsyncDir . '/excludes.txt',
+                true
+            );
+        }
     }
 
     /**

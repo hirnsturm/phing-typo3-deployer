@@ -46,6 +46,8 @@ releases/
     current/
     previous/
     next/
+rsync/
+    excludes.txt
 shared/
 typo3/
     composer.json
@@ -99,6 +101,8 @@ composer.lock
     ```bash
     bin/
     vendor/
+    rsync/
+        excludes.txt
     typo3/
         composer.json
     .gitignore
@@ -208,13 +212,13 @@ Für die korrekte Einrichtung auf dem Zielsystem sind folgende Schritte erforder
 Die automatierte Aktualisierung des Projekts kann über Git und Jenkins erfolgen.
 Bei der Synchronisation müssen folgende Dateien aktualisiert werden:
 
-    ```bash
-    typo3/
-    build.custom.properties
-    build.hook.xml
-    composer.json
-    composer.lock
-    ```
+```bash
+typo3/
+build.custom.properties
+build.hook.xml
+composer.json
+composer.lock
+```
 
 ## Hooks
 Alle Verfügbaren Hooks befinden sich in der Datei `build.hook.xml`.
@@ -286,9 +290,9 @@ Eigene Properties können in der Datei `build.custom.properties` hinterlegt werd
 
 #### Auflistung aller verfügbaren Kommandos
 
-    ```bash
-    $ bin/phing
-    ```
+```bash
+$ bin/phing
+```
 
 ### Lokale Entwicklung
 Die lokale Entwicklung findet im Verzeichnis *htdocs/typo3* statt.
@@ -343,19 +347,10 @@ $ bin/phing ci:release
 ### RSYNC Konfiguration
 
 ```bash
-# Sync
-rsync --delete -aze ssh --iconv=UTF-8 $WORKSPACE/typo3 <USER>@<SERVER>:/<WEB_ROOT>/<PROJECT>/
-rsync --delete -aze ssh --iconv=UTF-8 $WORKSPACE/layoutbuilder <USER>@<SERVER>:/<WEB_ROOT>/<PROJECT>/
-rsync --delete -aze ssh --iconv=UTF-8 $WORKSPACE/build.custom.properties <USER>@<SERVER>:/<WEB_ROOT>/<PROJECT>/build.custom.properties
-rsync --delete -aze ssh --iconv=UTF-8 $WORKSPACE/build.hook.xml <USER>@<SERVER>:/<WEB_ROOT>/<PROJECT>/build.hook.xml
-rsync --delete -aze ssh --iconv=UTF-8 $WORKSPACE/composer.json <USER>@<SERVER>:/<WEB_ROOT>/<PROJECT>/composer.json
-rsync --delete -aze ssh --iconv=UTF-8 $WORKSPACE/composer.lock <USER>@<SERVER>:/<WEB_ROOT>/<PROJECT>/composer.lock
-# Excludes
-rsync --exclude=.gitignore -aze ssh --iconv=UTF-8 $WORKSPACE <USER>@<SERVER>:/<WEB_ROOT>/<PROJECT>/
-rsync --exclude=build.env.properties -aze ssh --iconv=UTF-8 $WORKSPACE/htdocs <USER>@<SERVER>:/<WEB_ROOT>/<PROJECT>/
-rsync --exclude=shared -aze ssh --iconv=UTF-8 $WORKSPACE <USER>@<SERVER>:/<WEB_ROOT>/<PROJECT>/
-rsync --exclude=releases -aze ssh --iconv=UTF-8 $WORKSPACE <USER>@<SERVER>:/<WEB_ROOT>/<PROJECT>/
+rsync --delete -aze ssh --iconv=UTF-8 --exclude-from $WORKSPACE/rsync/excludes.txt $WORKSPACE/ <user>@<server>:/<webroot>/<project>/
 ```
+
+Im der Datei `rsync/excludes.txt` können die RSYNC-Excludes konfiguriert werde.
 
 ## Todo
 - Rollback implementieren

@@ -1,0 +1,5 @@
+rsync
+releases
+shared
+build.env.properties
+build.xml
