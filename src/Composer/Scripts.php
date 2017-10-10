@@ -16,6 +16,17 @@ use Symfony\Component\Filesystem\Filesystem;
  */
 class Scripts
 {
+    const EXTRA_RSYNC_EXCLUDES = 'install-rsync-excludes';
+
+    /**
+     * @var Event
+     */
+    protected static $event;
+
+    /**
+     * @var array
+     */
+    protected static $extra;
     /**
      * @var Composer
      */
@@ -46,8 +57,12 @@ class Scripts
      */
     protected static function init(Event $event)
     {
+        /** @var Event event */
+        static::$event = $event;
         /** @var Composer composer */
         static::$composer = $event->getComposer();
+        /** @var array extra */
+        static::$extra = static::$composer->getPackage()->getExtra();
         /** @var IOInterface io */
         static::$io = $event->getIO();
         /** @var Filesystem fs */
@@ -136,14 +151,18 @@ class Scripts
         /**
          * Create 'rsync' and 'rsync/excludes.txt' if not exists
          */
-        if (false === static::$fs->exists(static::$rootDir . '/rsync')) {
-            $rsyncDir = static::$rootDir . '/rsync';
-            static::$fs->mkdir($rsyncDir);
-            static::$fs->copy(
-                static::$phingDist . '/rsync_excludes.txt',
-                $rsyncDir . '/excludes.txt',
-                true
-            );
+        if (array_key_exists(static::EXTRA_RSYNC_EXCLUDES, static::$extra)
+            && true === static::$extra[static::EXTRA_RSYNC_EXCLUDES]
+        ) {
+            if (false === static::$fs->exists(static::$rootDir . '/rsync')) {
+                $rsyncDir = static::$rootDir . '/rsync';
+                static::$fs->mkdir($rsyncDir);
+                static::$fs->copy(
+                    static::$phingDist . '/rsync_excludes.txt',
+                    $rsyncDir . '/excludes.txt',
+                    true
+                );
+            }
         }
     }
 

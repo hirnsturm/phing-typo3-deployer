@@ -86,6 +86,11 @@ composer.lock
         "post-update-cmd": [
           "Sle\\PhingTypo3Deployer\\Composer\\Scripts::postUpdate"
         ]
+      },
+      "extra": {
+        "sle/phing-typo3-deployer": {
+          "install-rsync-excludes": false
+        }
       }
     }
     ```
@@ -352,13 +357,36 @@ $ bin/phing ci:release
    <server>/<webroot>/<project>$ bin/phing ci:release
    ```
 
-### RSYNC Konfiguration
+### RSYNC
 
+#### Installation der excludes.txt
+
+Über folgende Composer-Konfiguration kann die `excludes.txt` automatisch installiert werden:
+
+```json
+"extra": {
+    "sle/phing-typo3-deployer": {
+        "install-rsync-excludes": true
+    }
+}
+```
+
+#### Konfiguration
 ```bash
 rsync --delete -aze ssh --iconv=UTF-8 --exclude-from $WORKSPACE/rsync/excludes.txt $WORKSPACE/ <user>@<server>:/<webroot>/<project>/
 ```
 
-Im der Datei `rsync/excludes.txt` können die RSYNC-Excludes konfiguriert werde.
+In der Datei `rsync/excludes.txt` können die RSYNC-Excludes konfiguriert werde:
+
+```bash
+rsync
+releases
+shared
+build.env.properties
+build.xml
+```
+
+
 
 ## Todo
 - Rollback implementieren
