@@ -38,7 +38,7 @@
 
 ### Projektstruktur
 
-Diese Tool benötigt und generiert folgende Verzeichnisstruktur und Dateien:
+Dieses Tool benötigt und generiert folgende Verzeichnisstruktur und Dateien:
 
 ```bash
 bin/
@@ -46,7 +46,7 @@ releases/
     current/
     previous/
     next/
-rsync/
+rsync/ -> Wird nur generiert, wenn 'install-rsync-excludes' aktiviert ist.
     excludes.txt
 shared/
 typo3/
@@ -62,6 +62,8 @@ composer.lock
 ```
 
 ## Einrichtung eines neuen Projekts
+
+Für die Einrichtung sind lediglich diese drei Schritte notwendig:
 
 1. `composer.json` im Webroot (htdocs-Verzeichnis) des Projekts erstellen
 
@@ -106,8 +108,6 @@ composer.lock
     ```bash
     bin/
     vendor/
-    rsync/
-        excludes.txt
     typo3/
         composer.json
     .gitignore
@@ -119,13 +119,7 @@ composer.lock
     composer.lock
     ```
 
-3. Initialisierung des Projekts und der Umgebungskonfiguration
-
-    ```bash
-    $ bin/phing init
-    ```
-
-4. Dateien zur Versionskontrolle hinzufügen
+3. Dateien zur Versionskontrolle hinzufügen
 
     Folgende Dateien müssen zur Versionskontrolle hinzugefügt werden:
 
@@ -184,11 +178,18 @@ Für die korrekte Einrichtung auf dem Zielsystem sind folgende Schritte erforder
     $ bin/phing ci:release
     ```
 
-    Debei werden folgende Datein und Verzeichnisse erstellt:
+    Dabei werden folgende Datein und Verzeichnisse erstellt:
 
     ```bash
     releases/
         current/
+            bin/
+            vendor/
+            web/
+        previous/ -> Wird ab dem zweiten Release generiert und beinhaltet immer das vorherige Release.
+            bin/
+            vendor/
+            web/
     build.env.properties
     ```
 
@@ -202,7 +203,13 @@ Für die korrekte Einrichtung auf dem Zielsystem sind folgende Schritte erforder
 5. TYPO3 CMS auf dem Zielsystem installieren
 
     Nun muss das TYPO3 CMS auf dem Zielsystem initial installiert werden. Dies kann über
-    den TYPO3 Install Wizard oder die *typo3_console* erfolgen.
+    den TYPO3 Install Wizard oder die *typo3console* erfolgen.
+
+    Installation mit Hilfe der *typo3console*:
+
+    ```bash
+    releases/current$ bin/typo3cms install:setup
+    ```
 
 6. Zentrale Ablage der gemeinsamen Dateien
 
@@ -213,6 +220,19 @@ Für die korrekte Einrichtung auf dem Zielsystem sind folgende Schritte erforder
     ```
 
     Hierbei werden die `LocalConfiguration.php` (ggf. auch `PackageStates.php`) sowie die Verzeichnisse `fileadmin` und `uploads` in das Verzeichnis `shared` kopiert, da diese immer gleich bleiben und somit für zukünftigen Releases zentral zur Verfügung stehen. Zudem werden die originale durch Symlinks ersetzt.
+
+    Generierte Verzeichnisstruktur für `shared`:
+
+    ```bash
+    releases/
+        current/
+    shared/
+        fileadmin/
+        uploads/
+        typo3conf/
+            LocalConfiguration.php
+            PackageStates.php -> optional über build.hook.xml deaktiwierbar
+    ```
 
 ### Einrichtung für die automatisierte Veröffentlichung
 
@@ -376,7 +396,7 @@ $ bin/phing ci:release
 rsync --delete -aze ssh --iconv=UTF-8 --exclude-from $WORKSPACE/rsync/excludes.txt $WORKSPACE/ <user>@<server>:/<webroot>/<project>/
 ```
 
-In der Datei `rsync/excludes.txt` können die RSYNC-Excludes konfiguriert werde:
+In der Datei `rsync/excludes.txt` können die RSYNC-Excludes konfiguriert werden:
 
 ```bash
 rsync
