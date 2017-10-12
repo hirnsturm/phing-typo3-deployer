@@ -25,7 +25,7 @@
         <echo>-------------------</echo>
         <echo>Build a new release</echo>
         <echo>-------------------</echo>
-        <phingcall target="hook:ci:release:post"/>
+        <phingcall target="hook:ci:release:before"/>
         <!---->
         <phingcall target="service:mkdir">
             <property name="dir"

@@ -29,11 +29,11 @@
     <!-- ============================================  -->
     <!-- Target: hook:ci:release:post                  -->
     <!-- ============================================  -->
-    <target name="hook:ci:release:post"
-            description="Pre-Release tasks">
-        <echo>-------------------------</echo>
-        <echo>Execute pre release tasks</echo>
-        <echo>-------------------------</echo>
+    <target name="hook:ci:release:before"
+            description="Before-Release tasks">
+        <echo>----------------------------</echo>
+        <echo>Execute before release tasks</echo>
+        <echo>----------------------------</echo>
     </target>
 
     <!-- ============================================  -->
