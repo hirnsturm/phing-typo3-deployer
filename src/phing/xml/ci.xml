@@ -86,6 +86,13 @@
             </else>
         </if>
         <echo/>
+        <phingcall target="service:move">
+            <property name="from"
+                      value="${release.next.htaccess.source}"/>
+            <property name="to"
+                      value="${release.next.htaccess.target}"/>
+        </phingcall>
+        <echo/>
         <phingcall target="hook:ci:shared:link-custom-shared-data"/>
         <echo/>
         <!---->
