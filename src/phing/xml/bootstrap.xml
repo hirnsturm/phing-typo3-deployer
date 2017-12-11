@@ -7,11 +7,7 @@
     <!-- ============================================  -->
     <!-- Import properties                             -->
     <!-- ============================================  -->
-    <property file="./build.env.properties"
-              logoutput="false"/>
     <property file="${src.dir}/config/build.properties"
-              logoutput="false"/>
-    <property file="./build.custom.properties"
               logoutput="false"/>
 
     <!-- ============================================  -->

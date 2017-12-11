@@ -5,14 +5,26 @@
 <project name="typo3-ci" default="help">
 
     <!-- ============================================  -->
-    <!-- Create properties                            -->
+    <!-- Import ENV properties                         -->
     <!-- ============================================  -->
-    <property name="src.dir"
-              value="vendor/sle/phing-typo3-deployer/src/phing"/>
+    <property file="${base.dir}/build.env.properties"
+              logoutput="false"/>
 
     <!-- ============================================  -->
-    <!-- Import bootstrap                                -->
+    <!-- Create properties                             -->
+    <!-- ============================================  -->
+    <property name="src.dir"
+              value="${base.dir}/vendor/sle/phing-typo3-deployer/src/phing"/>
+
+    <!-- ============================================  -->
+    <!-- Import bootstrap                              -->
     <!-- ============================================  -->
     <import file="${src.dir}/xml/bootstrap.xml"/>
+
+    <!-- ============================================  -->
+    <!-- Import CUSTOM properties                      -->
+    <!-- ============================================  -->
+    <property file="${base.dir}/build.custom.properties"
+              logoutput="false"/>
 
 </project>
