@@ -181,7 +181,7 @@ Für die korrekte Einrichtung auf dem Zielsystem sind folgende Schritte erforder
 
        # Commandline configuration
        cmd.php = php_cli
-       cmd.composer = ${base.dir}/bin/composer
+       cmd.composer = composer
        ```
 
 4. Initiales Release veröffentlichen

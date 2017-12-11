@@ -27,7 +27,7 @@
     </target>
 
     <!-- ============================================  -->
-    <!-- Target: hook:ci:release:post                  -->
+    <!-- Target: hook:ci:release:before                -->
     <!-- ============================================  -->
     <target name="hook:ci:release:before"
             description="Before-Release tasks">
