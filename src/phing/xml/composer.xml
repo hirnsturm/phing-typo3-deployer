@@ -129,18 +129,8 @@
             </else>
         </if>
         <!-- run -->
-        <composer command="${command}"
-                  composer="${cmd.composer}"
-                  php="${cmd.php}">
-            <arg value="${dry-run-cmd}"/>
-            <arg value="${no-dev-cmd}"/>
-            <arg value="--prefer-dist"/>
-            <arg value="--no-interaction"/>
-            <arg value="--optimize-autoloader"/>
-            <arg value="--profile"/>
-            <arg value="--verbose"/>
-            <arg value="${working-dir-cmd}"/>
-        </composer>
+        <exec command="${cmd.composer} ${command} ${dry-run-cmd} ${no-dev-cmd} --prefer-dist --no-interaction --optimize-autoloader --profile --verbose ${working-dir-cmd}"
+              logoutput="true"/>
     </target>
 
 </project>
