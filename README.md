@@ -169,7 +169,22 @@ Für die korrekte Einrichtung auf dem Zielsystem sind folgende Schritte erforder
     $ composer install
     ```
 
-3. Initiales Release veröffentlichen
+3. Bei einigen vServern (bspw. *Mittwald vServer*) kann Phing den absoluten Pfad nicht korrekt auslesen. Zudem wird PHP
+   in der Kommandozeile mit `php_cli` statt mit `php` aufgerufen. Daher können die Umgebungsvariablen, in der nun
+   angelegten `build.env.properties`, umkonfiguriert werden.
+
+   * Bsp. *Mittwald vServer* ENV-Konfiguration:
+
+       ```
+       # Base directory configuration
+       base.dir = /home/www/p<XXXXXX>/html/<project-dir>
+
+       # Commandline configuration
+       cmd.php = php_cli
+       cmd.composer = ${base.dir}/bin/composer
+       ```
+
+4. Initiales Release veröffentlichen
 
     Das Verzeichnis mit der akteullen Version befindet sich unter `releases/current/`.
     damit dieses erstellt werden kann, muss folgender Befehl ausgeführt werden:
@@ -177,6 +192,12 @@ Für die korrekte Einrichtung auf dem Zielsystem sind folgende Schritte erforder
     ```bash
     $ bin/phing ci:release
     ```
+
+    > **Achtung!**
+    >
+    > Ggf. kann es bei der Ausführung auf *Mittwald vServer* dazu kommen, das Phing nicht die `build.xml` finden
+    > kann. Hierfür sollte alternativ eine `phing.phar` installiert werden (siehe https://www.phing.info/). Die `phing.phar`
+    > sollte idealerweise in das Projekt-Reporitory aufgenommen und somit mit deployed werden.
 
     Dabei werden folgende Datein und Verzeichnisse erstellt:
 
@@ -194,13 +215,12 @@ Für die korrekte Einrichtung auf dem Zielsystem sind folgende Schritte erforder
     ```
 
     In das Verzeichnis `releases/current/` werden die Daten aus dem Verzeichnis `typo3` kopiert und `composer install` ausgeführt.
-    In der Datei `build.env.properties` können die Umgebungsvariablen ggf. umkonfiguriert werden.
 
-4. vHost konfigurieren
+5. vHost konfigurieren
 
     Der vHost muss auf das Verzeichnis `<project-root>/releases/current/web` zeigen.
 
-5. TYPO3 CMS auf dem Zielsystem installieren
+6. TYPO3 CMS auf dem Zielsystem installieren
 
     Nun muss das TYPO3 CMS auf dem Zielsystem initial installiert werden. Dies kann über
     den TYPO3 Install Wizard oder die *typo3console* erfolgen.
@@ -211,7 +231,7 @@ Für die korrekte Einrichtung auf dem Zielsystem sind folgende Schritte erforder
     releases/current$ bin/typo3cms install:setup
     ```
 
-6. Zentrale Ablage der gemeinsamen Dateien
+7. Zentrale Ablage der gemeinsamen Dateien
 
     Die gemeinsamen Dateien (shared data) müssen nun noch zentral abgelegt werden, damit sie für zukünftige Releases verfügbar sind:
 
