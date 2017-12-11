@@ -197,7 +197,11 @@ Für die korrekte Einrichtung auf dem Zielsystem sind folgende Schritte erforder
     >
     > Ggf. kann es bei der Ausführung auf *Mittwald vServer* dazu kommen, das Phing nicht die `build.xml` finden
     > kann. Hierfür sollte alternativ eine `phing.phar` installiert werden (siehe https://www.phing.info/). Die `phing.phar`
-    > sollte idealerweise in das Projekt-Reporitory aufgenommen und somit mit deployed werden.
+    > sollte idealerweise in das Root-Verzeichnis des Projekt-Reporitories aufgenommen und auch mit deployed werden.
+    >
+    > ```bash
+    > $ php_cli phing.phar ci:release
+    > ```
 
     Dabei werden folgende Datein und Verzeichnisse erstellt:
 
