@@ -7,7 +7,7 @@
     <!-- ============================================  -->
     <!-- Import ENV properties                         -->
     <!-- ============================================  -->
-    <property file="${base.dir}/build.env.properties"
+    <property file="./build.env.properties"
               logoutput="false"/>
 
     <!-- ============================================  -->
