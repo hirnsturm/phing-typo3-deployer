@@ -24,9 +24,6 @@
         <echo>Update Languages</echo>
         <exec command="${cmd.php} ${typo3console.path.next} language:update"
               logoutput="true"/>
-        <echo>Run Scheduler</echo>
-        <exec command="${cmd.php} ${typo3console.path.next} scheduler:run"
-              logoutput="true"/>
         <echo>Lock backend</echo>
         <exec command="${cmd.php} ${typo3console.path.current} backend:lock --admin-only"
               logoutput="true"/>
