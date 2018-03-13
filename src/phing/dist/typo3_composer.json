@@ -44,11 +44,7 @@
   },
   "scripts": {
     "typo3-setup-update": [
-      "@php bin/typo3cms install:generatepackagestates --excluded-extensions realurl --activate-default",
-      "@php bin/typo3cms database:updateschema",
-      "@php bin/typo3cms install:fixfolderstructure",
-      "@php bin/typo3cms cache:flush",
-      "@php bin/typo3cms language:update"
+      "@php bin/typo3cms install:generatepackagestates --excluded-extensions realurl --activate-default"
     ],
     "typo3-setup-production": [
       "@php bin/typo3cms install:generatepackagestates --activate-default",
