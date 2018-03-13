@@ -43,7 +43,27 @@
     "friendsoftypo3/extension-builder": "^8.7"
   },
   "scripts": {
-    "post-update-cmd": "@php bin/security-checker security:check"
+    "typo3-setup-update": [
+      "@php bin/typo3cms install:generatepackagestates --excluded-extensions realurl --activate-default",
+      "@php bin/typo3cms database:updateschema",
+      "@php bin/typo3cms install:fixfolderstructure",
+      "@php bin/typo3cms cache:flush",
+      "@php bin/typo3cms language:update"
+    ],
+    "typo3-setup-production": [
+      "@php bin/typo3cms install:generatepackagestates --activate-default",
+      "@php bin/typo3cms database:updateschema",
+      "@php bin/typo3cms install:fixfolderstructure",
+      "@php bin/typo3cms cache:flush",
+      "@php bin/typo3cms language:update"
+    ],
+    "post-autoload-dump": [
+      "@typo3-setup-production"
+    ],
+    "post-update-cmd": [
+      "@php bin/security-checker security:check",
+      "@typo3-setup-update"
+    ]
   },
   "extra": {
     "typo3/cms": {
