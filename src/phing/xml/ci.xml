@@ -25,6 +25,9 @@
         <echo>-------------------</echo>
         <echo>Build a new release</echo>
         <echo>-------------------</echo>
+        <echo>Lock TYPO3 backend for editors</echo>
+        <exec command="${cmd.php} ${typo3console.path.previous} backend:lockforeditors"
+              logoutput="true"/>
         <phingcall target="hook:ci:release:before"/>
         <!---->
         <phingcall target="service:mkdir">
@@ -101,7 +104,6 @@
                       value="${release.next}"/>
         </phingcall>
         <!---->
-        <phingcall target="typo3console-before-release"/>
         <phingcall target="hook:ci:release:before-release-new-build"/>
         <echo/>
         <echo>-----------------</echo>
@@ -126,7 +128,9 @@
                       value="${release.current}"/>
         </phingcall>
         <echo/>
-        <phingcall target="typo3console-post-release"/>
+        <echo>Unlock TYPO3 backend</echo>
+        <exec command="${cmd.php} ${typo3console.path.previous} backend:unlock"
+              logoutput="true"/>
         <phingcall target="hook:ci:release:post"/>
         <echo/>
         <echo>=======================</echo>
