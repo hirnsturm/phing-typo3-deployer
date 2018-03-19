@@ -131,6 +131,8 @@
         <echo>Unlock TYPO3 backend</echo>
         <exec command="${cmd.php} ${typo3console.path.previous} backend:unlock"
               logoutput="true"/>
+        <exec command="${cmd.php} ${typo3console.path.current} backend:lockforeditors"
+              logoutput="true"/>
         <phingcall target="hook:ci:release:post"/>
         <echo/>
         <echo>=======================</echo>
