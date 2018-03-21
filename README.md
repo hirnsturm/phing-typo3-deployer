@@ -52,7 +52,6 @@ shared/
 typo3/
     composer.json
 vendor/
-.gitignore
 build.custom.properties
 build.env.properties
 build.hook.xml
@@ -110,7 +109,6 @@ Für die Einrichtung sind lediglich diese drei Schritte notwendig:
     vendor/
     typo3/
         composer.json
-    .gitignore
     build.custom.properties
     build.env.properties
     build.hook.xml
@@ -124,7 +122,6 @@ Für die Einrichtung sind lediglich diese drei Schritte notwendig:
     Folgende Dateien müssen zur Versionskontrolle hinzugefügt werden:
 
     ```bash
-    .gitignore
     rsync/
         excludes.txt
     typo3/
@@ -153,7 +150,6 @@ Für die korrekte Einrichtung auf dem Zielsystem sind folgende Schritte erforder
     Zielsystem kopiert werden. Die Verzeichnisstruktur sieht nun wie folgt aus:
 
     ```bash
-    .gitignore -> Muss nicht mit auf dem Zielsystem installiert werden
     typo3/
         composer.json
         composer.lock
@@ -363,7 +359,6 @@ typo3/
     composer.json
     composer.lock
 vendor/
-.gitignore
 build.custom.properties
 build.env.properties
 build.hook.xml
