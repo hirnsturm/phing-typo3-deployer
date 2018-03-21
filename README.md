@@ -3,31 +3,37 @@
 
 ## Inhalt
 
-* [Einleitung](#einleitung)
-    * [Was ist das Ziel dieses Pakets?](#was-ist-das-ziel-dieses-pakets)
-    * [Voraussetzungen](#voraussetzungen)
-    * [Projektstruktur](#projektstruktur)
-* [Einrichtung eines neuen Projekts](#einrichtung-eines-neuen-projekts)
-* [Einrichtung des Projekts auf dem Zielsystem](#einrichtung-des-projekts-auf-dem-zielsystem)
-    * [Einrichtung für die automatisierte Veröffentlichung](#einrichtung-für-die-automatisierte-veröffentlichung)
+* [Einleitung](#introduction)
+    * [Was ist das Ziel dieses Pakets?](#introduction-goal)
+    * [Voraussetzungen](#introduction-requirements)
+    * [Projektstruktur](#introduction-project-structure)
+* [Einrichtung eines neuen Projekts](#project-installation)
+* [Einrichtung des Projekts auf dem Zielsystem](#project-installation-target-system)
+* [Einrichtung für die automatisierte Veröffentlichung](#deployment)
 * [Hooks](#hooks)
 * [Properties](#properties)
-    * [Globale Properties](#globale-properties)
-    * [Eigene Properties](#eigene-properties)
+    * [Globale Properties](#properties-global)
+    * [Eigene Properties](#properties-custom)
 * [FAQ](#faq)
-    * [Verfügbare Befehle](#verfügbare-befehle)
-    * [Auflistung aller verfügbaren Kommandos](#auflistung-aller-verfügbaren-kommandos)
-    * [Lokale Entwicklung](#lokale-entwicklung)
-    * [Wie erstellt man ein neues Release?](#wie-erstellt-man-ein-neues-release)
-    * [Jenkins Projekt Konfiguration](#jenkins-projekt-konfiguration)
-    * [RSYNC Konfiguration](#rsync-konfiguration)
+    * [Auflistung aller verfügbaren Kommandos](#faq-list-commands)
+    * [Lokale Entwicklung](#faq-local-dev)
+    * [Wie erstellt man ein neues Release?](#faq-release)
+    * [Jenkins Projekt Konfiguration](#faq-jenkins)
+    * [RSYNC](#faq-rsync)
+        * [RSYNC Installation](#faq-rsync-installation)
+        * [RSYNC Konfiguration](#faq-rsync-config)
+    * [Versionskontrolle](#faq-vcs)
 * [Todo](#todo)
 
+<a name="introduction"></a>
 ## Einleitung
 
+<a name="introduction-goal"></a>
 ### Was ist das Ziel dieses Pakets?
+
 *Phing Typo3 Deployer* basiert auf dem Build-Tool [Phing](https://www.phing.info/) und dient zum automatisierten Veröffentlichen, i.S.v. Continuous Intregration und Continuous Depoyment, von TYPO3 CMS Instanzen.
 
+<a name="introduction-requirements"></a>
 ### Voraussetzungen
 
 * PHP 7
@@ -36,6 +42,7 @@
 * Unix or Linux
 * Ausführung mit den nötigen Berechtigungen des Web-Users (i.d.R. www-data)
 
+<a name="introduction-project-structure"></a>
 ### Projektstruktur
 
 Dieses Tool benötigt und generiert folgende Verzeichnisstruktur und Dateien:
@@ -60,6 +67,7 @@ composer.json
 composer.lock
 ```
 
+<a name="project-installation"></a>
 ## Einrichtung eines neuen Projekts
 
 Für die Einrichtung sind lediglich diese drei Schritte notwendig:
@@ -138,6 +146,7 @@ Für die Einrichtung sind lediglich diese drei Schritte notwendig:
     $ git add -A && git commit -m '[Build] Add phing-typo3-deployer'
     ```
 
+<a name="project-installation-target-system"></a>
 ## Einrichtung des Projekts auf dem Zielsystem
 
 Unter dem Begriff *Zielsystem* wird hier ein Webserver oder Ähnliches verstanden.
@@ -254,7 +263,8 @@ Für die korrekte Einrichtung auf dem Zielsystem sind folgende Schritte erforder
             PackageStates.php -> optional über build.hook.xml deaktiwierbar
     ```
 
-### Einrichtung für die automatisierte Veröffentlichung
+<a name="deployment"></a>
+## Einrichtung für die automatisierte Veröffentlichung
 
 Die automatierte Aktualisierung des Projekts kann über Git und Jenkins erfolgen.
 Bei der Synchronisation müssen folgende Dateien aktualisiert werden:
@@ -267,11 +277,15 @@ composer.json
 composer.lock
 ```
 
+<a name="hooks"></a>
 ## Hooks
+
 Alle Verfügbaren Hooks befinden sich in der Datei `build.hook.xml`.
 
+<a name="properties"></a>
 ## Properties
 
+<a name="properties-global"></a>
 ### Globale Properties
 
 ```
@@ -333,20 +347,22 @@ typo3console.path.current = ${release.current}/vendor/bin/typo3cms
 typo3console.path.previous = ${release.previous}/vendor/bin/typo3cms
 ```
 
+<a name="properties-custom"></a>
 ### Eigene Properties
 
 Eigene Properties können in der Datei `build.custom.properties` hinterlegt werden und stehen in den Hooks zur Verfügung.
 
+<a name="faq"></a>
 ## FAQ
 
-### Verfügbare Befehle
-
-#### Auflistung aller verfügbaren Kommandos
+<a name="faq-list-commands"></a>
+### Auflistung aller verfügbaren Kommandos
 
 ```bash
 $ bin/phing
 ```
 
+<a name="faq-local-dev"></a>
 ### Lokale Entwicklung
 Die lokale Entwicklung findet im Verzeichnis *htdocs/typo3* statt.
 Die komplette Verzeichnisstruktur nach der installation sieht wie folgt aus:
@@ -369,12 +385,14 @@ composer.lock
 
 Der vHost sollte auf `typo3/web` zeigen.
 
+<a name="faq-release"></a>
 ### Wie erstellt man ein neues Release?
 
 ```bash
 $ bin/phing ci:release
 ```
 
+<a name="faq-jekins"></a>
 ### Jenkins Projekt Konfiguration
 
 * Folgende Dateien müssen synchronisiert werden
@@ -396,8 +414,11 @@ $ bin/phing ci:release
    <server>/<webroot>/<project>$ bin/phing ci:release
    ```
 
+
+<a name="faq-rsync"></a>
 ### RSYNC
 
+<a name="faq-rsync-installation"></a>
 #### Installation der excludes.txt
 
 Über folgende Composer-Konfiguration kann die `excludes.txt` automatisch installiert werden:
@@ -409,7 +430,7 @@ $ bin/phing ci:release
     }
 }
 ```
-
+<a name="faq-rsync-config"></a>
 #### Konfiguration
 ```bash
 rsync --delete -aze ssh --iconv=UTF-8 --exclude-from $WORKSPACE/rsync/excludes.txt $WORKSPACE/ <user>@<server>:/<webroot>/<project>/
@@ -425,7 +446,19 @@ build.env.properties
 build.xml
 ```
 
+<a name="faq-vcs"></a>
+### Versionskontrolle
 
+Folgende Dateien und Verzeichnisse sollten nicht in die Versionskontrolle aufgenommen werden:
+
+```bash
+build.env.properties
+build.xml
+bin
+shared
+vendor
+releases
+```
 
 ## Todo
 - Rollback implementieren
