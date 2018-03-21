@@ -74,7 +74,7 @@ Für die Einrichtung sind lediglich diese drei Schritte notwendig:
       "description": "",
       "type": "project",
       "require": {
-        "sle/phing-typo3-deployer": "^0.1"
+        "sle/phing-typo3-deployer": "[VERSION]"
       },
       "config": {
         "vendor-dir": "vendor",
