@@ -105,14 +105,6 @@ class Scripts
         );
 
         /**
-         * Create '.gitignore' if not exists
-         */
-        static::copyIfNotExists(
-            static::$rootDir . '/.gitignore',
-            static::$phingDist . '/_.gitignore'
-        );
-
-        /**
          * Create 'build.env.properties' if not exists
          */
         static::copyIfNotExists(
