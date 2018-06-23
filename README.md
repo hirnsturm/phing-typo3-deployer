@@ -1,6 +1,8 @@
 # Phing TYPO3 Deployer
 *[Copyright 2017 by Steve Lenz](./LICENSE)*
 
+![[Tracis CI](https://travis-ci.org/hirnsturm/phing-typo3-deployer)](https://img.shields.io/travis/hirnsturm/phing-typo3-deployer/master.svg)
+
 ## Inhalt
 
 * [Einleitung](#introduction)
