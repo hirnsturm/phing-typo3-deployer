@@ -26,7 +26,7 @@
         <echo>Build a new release</echo>
         <echo>-------------------</echo>
         <echo>Lock TYPO3 backend for editors</echo>
-        <exec command="${cmd.php} ${typo3console.path.previous} backend:lockforeditors"
+        <exec command="${cmd.php} ${typo3console.path.current} backend:lockforeditors"
               logoutput="true"/>
         <phingcall target="hook:ci:release:before"/>
         <!---->
