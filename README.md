@@ -199,6 +199,7 @@ Für die korrekte Einrichtung auf dem Zielsystem sind folgende Schritte erforder
     ```bash
     $ bin/phing ci:release
     ```
+    Siehe auch [Wie erstellt man ein neues Release?](#faq-release)
 
     > **Achtung!**
     >
@@ -394,6 +395,16 @@ Der vHost sollte auf `typo3/web` zeigen.
 $ bin/phing ci:release
 ```
 
+Alternativ kann man das Release über 3 dedizierte Targets erstellen und veröffentlichen lassen. Zwischen den Targets
+können eigene Server-Skripte, bspw. Anpassung von Berechtigungen, ausgeführt werden. (Diese drei Targets werden in der
+Reihenfolge auch vom `ci:release` ausgeführt)
+
+```bash
+$ bin/phing ci:release:create:next
+$ bin/phing ci:release:publish:next
+$ bin/phing ci:release:post-actions
+```
+
 <a name="faq-jekins"></a>
 ### Jenkins Projekt Konfiguration
 
@@ -415,6 +426,7 @@ $ bin/phing ci:release
    <server>/<webroot>/<project>$ composer install
    <server>/<webroot>/<project>$ bin/phing ci:release
    ```
+   Siehe auch [Wie erstellt man ein neues Release?](#faq-release)
 
 
 <a name="faq-rsync"></a>
