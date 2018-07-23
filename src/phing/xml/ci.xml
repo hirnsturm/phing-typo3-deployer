@@ -22,9 +22,29 @@
             description="Creates a new release">
         <phingcall target="copyright"/>
         <phingcall target="env"/>
-        <echo>-------------------</echo>
-        <echo>Build a new release</echo>
-        <echo>-------------------</echo>
+        <echo/>
+        <echo>Run target: ci:release:create:next</echo>
+        <phingcall target="ci:release:create:next"/>
+        <echo/>
+        <echo>Run target: ci:release:publish:next</echo>
+        <phingcall target="ci:release:publish:next"/>
+        <echo/>
+        <echo>Run target: ci:release:post-actions</echo>
+        <phingcall target="ci:release:post-actions"/>
+        <echo/>
+        <echo>========================</echo>
+        <echo>Build has been published</echo>
+        <echo>========================</echo>
+    </target>
+
+    <!-- ============================================  -->
+    <!-- Target: ci:release:create:next                -->
+    <!-- ============================================  -->
+    <target name="ci:release:create:next"
+            description="Creates next release version">
+        <echo>-----------------</echo>
+        <echo>Build new release</echo>
+        <echo>-----------------</echo>
         <echo>Lock TYPO3 backend for editors</echo>
         <exec command="${cmd.php} ${typo3console.path.current} backend:lockforeditors"
               logoutput="true"/>
@@ -104,14 +124,22 @@
                       value="${release.next}"/>
         </phingcall>
         <!---->
+    </target>
+
+    <!-- ============================================  -->
+    <!-- Target: ci:release:publish:next               -->
+    <!-- ============================================  -->
+    <target name="ci:release:publish:next"
+            description="Publishes the new release (change dir: releases/next -> releases/current)">
+        <echo>-----------------</echo>
+        <echo>Publish new build</echo>
+        <echo>-----------------</echo>
         <phingcall target="hook:ci:release:before-release-new-build"/>
         <echo/>
-        <echo>-----------------</echo>
-        <echo>Release new build</echo>
-        <echo>-----------------</echo>
         <echo>Remove ${release.previous}</echo>
         <delete dir="${release.previous}"
                 failonerror="false"/>
+        <echo>Rename ${release.current} to ${release.previous}</echo>
         <phingcall target="service:move">
             <property name="from"
                       value="${release.current}"/>
@@ -121,6 +149,7 @@
         <echo>Remove ${release.current}</echo>
         <delete dir="${release.current}"
                 failonerror="false"/>
+        <echo>Rename ${release.next} to ${release.previous}</echo>
         <phingcall target="service:move">
             <property name="from"
                       value="${release.next}"/>
@@ -133,11 +162,17 @@
               logoutput="true"/>
         <exec command="${cmd.php} ${typo3console.path.current} backend:unlockforeditors"
               logoutput="true"/>
+    </target>
+
+    <!-- ============================================  -->
+    <!-- Target: ci:release:post-actions               -->
+    <!-- ============================================  -->
+    <target name="ci:release:post-actions"
+            description="Executes post release actions">
+        <echo>--------------------</echo>
+        <echo>Post release actions</echo>
+        <echo>--------------------</echo>
         <phingcall target="hook:ci:release:post"/>
-        <echo/>
-        <echo>=======================</echo>
-        <echo>Build has been released</echo>
-        <echo>=======================</echo>
     </target>
 
     <!-- ============================================  -->
