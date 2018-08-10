@@ -54,12 +54,6 @@
         <echo>--------------------------</echo>
         <echo>Create custom shared files</echo>
         <echo>--------------------------</echo>
-        <phingcall target="service:move">
-            <property name="from"
-                      value="${release.current.PackageStates_php}"/>
-            <property name="to"
-                      value="${shared.typo3conf.PackageStates_php}"/>
-        </phingcall>
     </target>
 
     <!-- ==============================================  -->
@@ -70,14 +64,6 @@
         <echo>------------------------</echo>
         <echo>Link custom shared files</echo>
         <echo>------------------------</echo>
-        <phingcall target="service:symlink">
-            <property name="title"
-                      value="Create Symlink for 'PackageStates.php'"/>
-            <property name="target"
-                      value="${shared.typo3conf.PackageStates_php}"/>
-            <property name="link"
-                      value="${release.next.PackageStates_php}"/>
-        </phingcall>
     </target>
 
 </project>
