@@ -71,12 +71,12 @@
         <echo>----------------</echo>
         <if>
             <not>
-                <available file="${shared.dir}"
+                <available file="${shared.typo3conf.LocalConfiguration_php}"
                            property="shared.dir.available"/>
             </not>
             <then>
                 <echo level="error"/>
-                <echo level="error">-> Directory 'shared' is missing! (${shared.dir})</echo>
+                <echo level="error">-> Directory 'shared' is missing or incomplete! (${shared.dir})</echo>
                 <echo level="error">-> Create '${shared.dir}' by execution of command 'init:shared' after TYPO3 installation
                 </echo>
                 <echo level="error"/>
