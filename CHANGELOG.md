@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [1.3.2] - 2018-08-10
+### Remove
+- [Remove] Deprecated 'PackageStates.php'-Handling from 'build.hook.xml' removed
+
 ## [1.3.1] - 2018-08-10
 ### Changed
 - [Task] It's better to check the presence of shared 'LocalConfiguration.php' instead of 'shared'-Dir while executing 'ci:release:create:next'
