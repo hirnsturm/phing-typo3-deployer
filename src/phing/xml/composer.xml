@@ -72,7 +72,7 @@
             </not>
             <then>
                 <echo level="error">Missing composer command.</echo>
-                <fail message="Exit"/>
+                <fail message="Exit" status="1"/>
             </then>
         </if>
         <!-- check working-dir -->
@@ -130,7 +130,8 @@
         </if>
         <!-- run -->
         <exec command="${cmd.composer} ${command} ${dry-run-cmd} ${no-dev-cmd} --prefer-dist --no-interaction --optimize-autoloader --profile --verbose ${working-dir-cmd}"
-              logoutput="true"/>
+              logoutput="true"
+              passthru="true"/>
     </target>
 
 </project>
