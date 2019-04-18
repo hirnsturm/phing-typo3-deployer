@@ -46,6 +46,22 @@
             <property name="link"
                       value="${release.current.fileadmin}"/>
         </phingcall>
+        <if>
+            <not>
+                <available file="${release.current.uploads}"
+                           property="from.available"/>
+            </not>
+            <then>
+                <echo level="warning"/>
+                <echo level="warning">-> ${release.current.uploads} does not exists!</echo>
+                <echo level="warning">-> Create directory '${release.current.uploads}'</echo>
+                <echo level="warning"/>
+                <phingcall target="service:mkdir">
+                    <property name="dir"
+                              value="${release.current.uploads}"/>
+                </phingcall>
+            </then>
+        </if>
         <phingcall target="service:move">
             <property name="from"
                       value="${release.current.uploads}"/>
