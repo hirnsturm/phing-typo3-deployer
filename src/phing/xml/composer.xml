@@ -152,7 +152,8 @@
         <!-- run -->
         <exec command="${cmd.composer} ${command} ${dry-run-cmd} ${no-scripts-cmd} ${no-dev-cmd} --prefer-dist --no-interaction --optimize-autoloader --profile --verbose ${working-dir-cmd}"
               logoutput="true"
-              passthru="true"/>
+              passthru="true"
+              checkreturn="true"/>
     </target>
 
 </project>
