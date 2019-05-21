@@ -34,6 +34,8 @@
                       value="1"/>
             <property name="dry-run"
                       value="${dry-run}"/>
+            <property name="no-scripts"
+                      value="${no-scripts}"/>
         </phingcall>
         <echo/>
     </target>
@@ -55,6 +57,8 @@
                       value="${working-dir}"/>
             <property name="dry-run"
                       value="${dry-run}"/>
+            <property name="no-scripts"
+                      value="${no-scripts}"/>
         </phingcall>
         <echo/>
     </target>
@@ -111,6 +115,23 @@
                           value=""/>
             </else>
         </if>
+        <!-- check option no-scripts -->
+        <if>
+            <and>
+                <isset property="no-scripts"/>
+                <equals arg1="${no-scripts}"
+                        arg2="1" />
+            </and>
+            <then>
+                <property name="no-scripts-cmd"
+                          value="--no-scripts"/>
+                <echo>no-scripts-cmd: ${no-scripts-cmd}</echo>
+            </then>
+            <else>
+                <property name="no-scripts-cmd"
+                          value=""/>
+            </else>
+        </if>
         <!-- check option no-dev -->
         <if>
             <and>
@@ -129,7 +150,7 @@
             </else>
         </if>
         <!-- run -->
-        <exec command="${cmd.composer} ${command} ${dry-run-cmd} ${no-dev-cmd} --prefer-dist --no-interaction --optimize-autoloader --profile --verbose ${working-dir-cmd}"
+        <exec command="${cmd.composer} ${command} ${dry-run-cmd} ${no-scripts-cmd} ${no-dev-cmd} --prefer-dist --no-interaction --optimize-autoloader --profile --verbose ${working-dir-cmd}"
               logoutput="true"
               passthru="true"/>
     </target>

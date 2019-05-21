@@ -77,11 +77,7 @@
                            property="shared.dir.available"/>
             </not>
             <then>
-                <echo level="error"/>
-                <echo level="error">-> Directory 'shared' is missing or incomplete! (${shared.dir})</echo>
-                <echo level="error">-> Create '${shared.dir}' by execution of command 'init:shared' after TYPO3 installation
-                </echo>
-                <echo level="error"/>
+                <phingcall target="ci:message:shared-is-missing"/>
             </then>
             <else>
                 <phingcall target="service:symlink">
@@ -111,6 +107,7 @@
             </else>
         </if>
         <echo/>
+        <!---->
         <phingcall target="service:move">
             <property name="from"
                       value="${release.next.htaccess.source}"/>
@@ -121,11 +118,28 @@
         <phingcall target="hook:ci:shared:link-custom-shared-data"/>
         <echo/>
         <!---->
-        <phingcall target="composer:install">
-            <property name="working-dir"
-                      value="${release.next}"/>
-        </phingcall>
-        <!---->
+        <if>
+            <not>
+                <available file="${shared.typo3conf.LocalConfiguration_php}"
+                           property="shared.dir.available"/>
+            </not>
+            <then>
+                <phingcall target="ci:message:shared-is-missing"/>
+                <echo level="error">-> Install composer dependencies with option '--no-scripts'</echo>
+                <phingcall target="composer:install">
+                    <property name="working-dir"
+                              value="${release.next}"/>
+                    <property name="no-scripts"
+                              value="1"/>
+                </phingcall>
+            </then>
+            <else>
+                <phingcall target="composer:install">
+                    <property name="working-dir"
+                              value="${release.next}"/>
+                </phingcall>
+            </else>
+        </if>
     </target>
 
     <!-- ============================================  -->
@@ -189,6 +203,19 @@
         <echo level="warning">--------------------------------</echo>
         <echo level="warning">Rollback is not implemented yet!</echo>
         <echo level="warning">--------------------------------</echo>
+    </target>
+
+    <!-- ============================================  -->
+    <!-- Target: ci:message:shared-is-missing                           -->
+    <!-- ============================================  -->
+    <target name="ci:message:shared-is-missing">
+        <echo level="error"/>
+        <echo level="error">-> Directory 'shared' is missing or incomplete! (Path: ${shared.dir})</echo>
+        <echo level="error"/>
+        <echo level="error">-> What I have to do?</echo>
+        <echo level="error">-> 1. Run TYPO3 installation</echo>
+        <echo level="error">-> 2. Create 'shared' directories by execution of 'init:shared' command</echo>
+        <echo level="error"/>
     </target>
 
 </project>
