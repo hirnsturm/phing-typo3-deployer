@@ -251,7 +251,7 @@ Für die korrekte Einrichtung auf dem Zielsystem sind folgende Schritte erforder
     $ bin/phing init:shared
     ```
 
-    Hierbei werden die `LocalConfiguration.php` (ggf. auch `PackageStates.php`) sowie die Verzeichnisse `fileadmin` und `uploads` in das Verzeichnis `shared` kopiert, da diese immer gleich bleiben und somit für zukünftigen Releases zentral zur Verfügung stehen. Zudem werden die originale durch Symlinks ersetzt.
+    Hierbei werden die `LocalConfiguration.php` sowie die Verzeichnisse `fileadmin` und `uploads` in das Verzeichnis `shared` kopiert, da diese immer gleich bleiben und somit für zukünftigen Releases zentral zur Verfügung stehen. Zudem werden die originale durch Symlinks ersetzt.
 
     Generierte Verzeichnisstruktur für `shared`:
 
@@ -263,7 +263,6 @@ Für die korrekte Einrichtung auf dem Zielsystem sind folgende Schritte erforder
         uploads/
         typo3conf/
             LocalConfiguration.php
-            PackageStates.php -> optional über build.hook.xml deaktiwierbar
     ```
 
 <a name="deployment"></a>
@@ -291,64 +290,7 @@ Alle Verfügbaren Hooks befinden sich in der Datei `build.hook.xml`.
 <a name="properties-global"></a>
 ### Globale Properties
 
-```
-#
-# This file contains basic build configurations
-#
-# (c) 2017, Steve Lenz
-#
-config.build_hook_xml = ${base.dir}/build.hook.xml
-
-release.dir = ${base.dir}/releases
-release.current = ${release.dir}/current
-release.previous  = ${release.dir}/previous
-release.next = ${release.dir}/next
-
-#
-# Next
-#
-release.next.web = ${release.next}/web
-release.next.typo3conf = ${release.next.web}/typo3conf
-release.next.LocalConfiguration_php = ${release.next.typo3conf}/LocalConfiguration.php
-release.next.PackageStates_php = ${release.next.typo3conf}/PackageStates.php
-release.next.fileadmin = ${release.next.web}/fileadmin
-release.next.uploads = ${release.next.web}/uploads
-
-#
-# Current
-#
-release.current.web = ${release.current}/web
-release.current.typo3conf = ${release.current.web}/typo3conf
-release.current.LocalConfiguration_php = ${release.current.typo3conf}/LocalConfiguration.php
-release.current.PackageStates_php = ${release.current.typo3conf}/PackageStates.php
-release.current.fileadmin = ${release.current.web}/fileadmin
-release.current.uploads = ${release.current.web}/uploads
-
-#
-# Shared
-#
-shared.dir = ${base.dir}/shared
-shared.typo3conf = ${shared.dir}/typo3conf
-shared.typo3conf.LocalConfiguration_php = ${shared.typo3conf}/LocalConfiguration.php
-shared.typo3conf.PackageStates_php = ${shared.typo3conf}/PackageStates.php
-shared.fileadmin = ${shared.dir}/fileadmin
-shared.uploads = ${shared.dir}/uploads
-
-#
-# TYPO3
-#
-typo3.dir = ${base.dir}/typo3
-typo3.composer.json = composer.json
-config.typo3.env = ${typo3.dir}/.env
-typo3.web.dir = ${typo3.dir}/web
-
-#
-# typo3console (https://github.com/TYPO3-Console/TYPO3-Console)
-#
-typo3console.path.next = ${release.next}/vendor/bin/typo3cms
-typo3console.path.current = ${release.current}/vendor/bin/typo3cms
-typo3console.path.previous = ${release.previous}/vendor/bin/typo3cms
-```
+Eine Liste der verwendbaren Properties befindet sich in der Datei `src/phing/config/build.properties`.
 
 <a name="properties-custom"></a>
 ### Eigene Properties
