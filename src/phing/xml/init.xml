@@ -84,7 +84,7 @@
         </phingcall>
         <phingcall target="service:copy">
             <property name="from"
-                      value="${release.current.dotEnvDistFile}"/>
+                      value="${typo3.dir.dotEnvDistFile}"/>
             <property name="to"
                       value="${shared.dotEnvFile}"/>
         </phingcall>
