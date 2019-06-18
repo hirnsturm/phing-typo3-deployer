@@ -1,12 +1,16 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [1.7.0] - 2018-06-19
-### Add
-- [Task] Target 'ci:release:create:next' will create symlink for '.env
+### Fixed
+- [Bugfix] '.env.dist' is not available in 'current/'
+
+## [1.7.0] - 2018-06-19
+### Added
+- [Task] Target 'ci:release:create:next' will create symlink for '.env'
 - [Task] Target 'init:shared' creates .env if exists
 - [Task] Target 'service:copy' available
 
@@ -25,7 +29,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - [Task] Make it available for php 7.3.x
 
 ## [1.3.2] - 2018-08-10
-### Remove
+### Removed
 - [Remove] Deprecated 'PackageStates.php'-Handling from 'build.hook.xml' removed
 
 ## [1.3.1] - 2018-08-10
@@ -37,18 +41,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - [Task] For better deployment controls ci:release should split in 3 dedicated targets
 
 ## [1.2.2] - 2018-07-20
-### Bugfix
+### Fixed
 - [Bugfix] Lock backend should work for current
 
 ## [1.2.1] - 2018-03-21
 ### Changed
 - [Task] Update composer dependencies - supports only >=7.0 <7.3
 
-### Added
+### Addeded
 - [CI] Add Travis CI configuration
 
 ## [1.2.0] - 2018-03-21
-### Remove
+### Removed
 - [Task] Remove installation of .gitignore file
 
 ## [1.1.3] - 2018-03-21
@@ -64,14 +68,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - 'composer update' calls 'bin/typo3cms' actions twice
 
 ## [1.1.0] - 2018-03-13
-### Add
+### Added
 - Improved typo3_composer.json scripts configuration
 
-### Remove
+### Removed
 - Remove target 'typo3console-before-release' in release process, because this should managed in TYPO3 composer.json
 
 ## [1.0.0] - 2018-02-02
-### Remove
+### Removed
 - 'typo3cms scheduler:run' from target 'typo3console-before-release', because this should be done in custom hook
 
 ## [0.5.5] - 2017-12-11
@@ -89,25 +93,25 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - [Doc] Improved documentation
 
 ## [0.5.2] - 2017-11-13
-### Added
+### Addeded
 - [Task] Move .htaccess while ci:release into web-directory
 
 ## [0.5.1] - 2017-10-12
-### Added
+### Addeded
 - [Remove] Redundant 'Create Symlink for PackageStates.php' in ci:release
 
 ### Changed
 - [Bugfix] ci:release calls wrong hook before release
 
-### Removed
+### Removedd
 - [Doc] Improved documentation
 
 ## [0.5.0] - 2017-10-10
-### Added
+### Addeded
 - [Task] RSYNC excludes should be installed by composer extra configuration
 
 ## [0.4.0] - 2017-10-09
-### Added
+### Addeded
 - [Task] Add typo3console tasks for ci:release
 - [Task] Installation of basic rsync excludes.txt
 
@@ -118,7 +122,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - [Doc] Fix misspelling
 
 ## [0.3.0] - 2017-10-06
-### Added
+### Addeded
 - [Task] Add TYPO3 composer.json and installation if not exists
 - [Task] Improved composer.json settings
 - [Task] Use dirname to generate dist path
@@ -128,7 +132,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - [Task] Set composer type as 'project'
 
 ## [0.2.0] - 2017-10-05
-### Added
+### Addeded
 - [Task] The installer schuld install TYPO3-directory if not exists
 - [Doc] Add copyright information and link to LICENSE
 
@@ -137,12 +141,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - [Doc] Improvement of documentation
 
 ## [0.1.1] - 2017-10-05
-### Added
+### Addeded
 - [Doc] Update Readme - Add RSYNC configuration
 
 ### Changed
 - [Bugfix] shared.typo3conf.PackageStates_php
 
 ## [0.1.0] - 2017-10-03
-### Added
+### Addeded
 - [Task] Inital commit
