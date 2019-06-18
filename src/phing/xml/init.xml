@@ -82,6 +82,12 @@
             <property name="to"
                       value="${shared.typo3conf.LocalConfiguration_php}"/>
         </phingcall>
+        <phingcall target="service:copy">
+            <property name="from"
+                      value="${release.current.dotEnvDistFile}"/>
+            <property name="to"
+                      value="${shared.dotEnvFile}"/>
+        </phingcall>
         <phingcall target="service:symlink">
             <property name="title"
                       value="Create Symlink for 'LocalConfiguration.php'"/>
