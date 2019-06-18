@@ -71,6 +71,32 @@
     </target>
 
     <!-- ============================================  -->
+    <!-- Target: service:copy                          -->
+    <!-- ============================================  -->
+    <target name="service:copy"
+            description="(Arguments: from=[from directory], to=[to direcotory])">
+        <echo>Copy ${from} to ${to}</echo>
+        <if>
+            <not>
+                <available file="${from}"
+                           property="from.available"/>
+            </not>
+            <then>
+                <echo level="warning"/>
+                <echo level="warning">-> Nothing to do:</echo>
+                <echo level="warning">-> File or directory '${from}' does not exist!</echo>
+                <echo level="warning"/>
+            </then>
+            <else>
+                <exec command="cp -R ${from} ${to}"
+                      logoutput="true"
+                      passthru="true"
+                      checkreturn="true"/>
+            </else>
+        </if>
+    </target>
+
+    <!-- ============================================  -->
     <!-- Target: service:symlink                       -->
     <!-- ============================================  -->
     <target name="service:symlink"
