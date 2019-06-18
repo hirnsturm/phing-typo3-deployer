@@ -104,6 +104,14 @@
                     <property name="link"
                               value="${release.next.fileadmin}"/>
                 </phingcall>
+                <phingcall target="service:symlink">
+                    <property name="title"
+                              value="Create Symlink for '.env'"/>
+                    <property name="target"
+                              value="${shared.dotEnvFile}"/>
+                    <property name="link"
+                              value="${release.next.dotEnvFile}"/>
+                </phingcall>
             </else>
         </if>
         <echo/>
