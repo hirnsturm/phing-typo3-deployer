@@ -162,6 +162,7 @@ Für die korrekte Einrichtung auf dem Zielsystem sind folgende Schritte erforder
 
     ```bash
     typo3/
+        .env.dist
         composer.json
         composer.lock
     build.custom.properties
@@ -259,6 +260,7 @@ Für die korrekte Einrichtung auf dem Zielsystem sind folgende Schritte erforder
     releases/
         current/
     shared/
+        .env (Wenn typo3/.env.dist vorhanden ist)
         fileadmin/
         uploads/
         typo3conf/
