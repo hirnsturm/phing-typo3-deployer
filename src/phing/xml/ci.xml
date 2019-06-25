@@ -173,7 +173,7 @@
         <echo>Remove ${release.current}</echo>
         <delete dir="${release.current}"
                 failonerror="false"/>
-        <echo>Rename ${release.next} to ${release.previous}</echo>
+        <echo>Rename ${release.next} to ${release.current}</echo>
         <phingcall target="service:move">
             <property name="from"
                       value="${release.next}"/>
