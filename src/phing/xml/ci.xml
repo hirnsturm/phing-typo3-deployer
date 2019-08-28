@@ -126,28 +126,11 @@
         <phingcall target="hook:ci:shared:link-custom-shared-data"/>
         <echo/>
         <!---->
-        <if>
-            <not>
-                <available file="${shared.typo3conf.LocalConfiguration_php}"
-                           property="shared.dir.available"/>
-            </not>
-            <then>
-                <phingcall target="ci:message:shared-is-missing"/>
-                <echo level="error">-> Install composer dependencies with option '--no-scripts'</echo>
-                <phingcall target="composer:install">
-                    <property name="working-dir"
-                              value="${release.next}"/>
-                    <property name="no-scripts"
-                              value="1"/>
-                </phingcall>
-            </then>
-            <else>
-                <phingcall target="composer:install">
-                    <property name="working-dir"
-                              value="${release.next}"/>
-                </phingcall>
-            </else>
-        </if>
+        <echo level="error">Install composer dependencies</echo>
+        <phingcall target="composer:install">
+            <property name="working-dir"
+                      value="${release.next}"/>
+        </phingcall>
     </target>
 
     <!-- ============================================  -->
