@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [2.0.0] - 2018-09-04
+### Changed
+- [Task] Enhanced configuration for custom TYPO3 web directory
+
 ## [1.7.2] - 2018-08-28
 ### Changed
 - [Task] Initial composer install with execution of scripts
