@@ -21,10 +21,4 @@
     <!-- ============================================  -->
     <import file="${src.dir}/xml/bootstrap.xml"/>
 
-    <!-- ============================================  -->
-    <!-- Import CUSTOM properties                      -->
-    <!-- ============================================  -->
-    <property file="${base.dir}/build.custom.properties"
-              logoutput="false"/>
-
 </project>

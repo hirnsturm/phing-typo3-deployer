@@ -11,6 +11,12 @@
               logoutput="false"/>
 
     <!-- ============================================  -->
+    <!-- Import CUSTOM properties                      -->
+    <!-- ============================================  -->
+    <property file="${base.dir}/build.custom.properties"
+              logoutput="false"/>
+
+    <!-- ============================================  -->
     <!-- Import targets                                -->
     <!-- ============================================  -->
     <import file="${src.dir}/xml/service.xml"/>
