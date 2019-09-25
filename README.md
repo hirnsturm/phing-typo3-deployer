@@ -25,7 +25,8 @@
         * [RSYNC Installation](#faq-rsync-installation)
         * [RSYNC Konfiguration](#faq-rsync-config)
     * [Versionskontrolle](#faq-vcs)
-* [Todo](#todo)
+* [Migration](#migration)
+    * [Version 1.x auf 2.x](#migration-1-to-2)
 
 <a name="introduction"></a>
 ## Einleitung
@@ -418,6 +419,26 @@ vendor
 releases
 ```
 
-## Todo
-- Rollback implementieren
-- Prozesse visualisieren
+<a name="migration"></a>
+## Migration
+
+<a name="migration-1-to-2"></a>
+### Version 1.x auf 2.x
+
+Ab der Version 2 __muss__ der Pfad des TYPO3 Web-Verzeichnises über die `build.custom.properties` wie folgt konfiguriert werden:
+
+```
+# TYPO3 CMS web-dir
+#
+# This should be the same value as in composer.json 'web-dir'
+#
+# Example:
+# ========
+# "extra": {
+#   "typo3/cms": {
+#       "cms-package-dir": "{$vendor-dir}/typo3/cms",
+#       "web-dir": "web"
+#   },
+# }
+typo3-cms.web-dir = web
+```
