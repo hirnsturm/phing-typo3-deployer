@@ -4,23 +4,28 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [2.0.0] - 2018-09-04
+## [2.1.0] - 2019-09-26
+### Add
+- [Task] Adjusts TYPO3 file and dir permissions before publishing
+- [Doc] Adds Migrationguide for version 2
+
+## [2.0.0] - 2019-09-04
 ### Changed
 - [Task] Enhanced configuration for custom TYPO3 web directory
 
-## [1.7.2] - 2018-08-28
+## [1.7.2] - 2019-08-28
 ### Changed
 - [Task] Initial composer install with execution of scripts
 
-## [1.7.1] - 2018-06-19
+## [1.7.1] - 2019-06-19
 ### Fixed
 - [Bugfix] Fix wrong output information in target "Publish new build"
 
-## [1.7.0] - 2018-06-19
+## [1.7.0] - 2019-06-19
 ### Fixed
 - [Bugfix] '.env.dist' is not available in 'current/'
 
-## [1.7.0] - 2018-06-19
+## [1.7.0] - 2019-06-19
 ### Added
 - [Task] Target 'ci:release:create:next' will create symlink for '.env'
 - [Task] Target 'init:shared' creates .env if exists
@@ -31,12 +36,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - [Task] Improved error handling while composer execution
 - [Task] Improved first time installation
 
-## [1.5.0] - 2018-08-10
+## [1.5.0] - 2019-08-10
 ### Changed
 - [Task] Should create dir 'uploads' if not exists
 - [Task] ExecTask output should redirected to stdout
 
-## [1.4.0] - 2018-08-10
+## [1.4.0] - 2019-05-03
 ### Changed
 - [Task] Make it available for php 7.3.x
 
