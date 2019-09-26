@@ -142,6 +142,7 @@
         <echo>Publish new build</echo>
         <echo>-----------------</echo>
         <phingcall target="hook:ci:release:before-release-new-build"/>
+        <phingcall target="ci:release:permissions:adjustment"/>
         <echo/>
         <echo>Remove ${release.previous}</echo>
         <delete dir="${release.previous}"
@@ -207,6 +208,52 @@
         <echo level="error">-> 1. Run TYPO3 installation</echo>
         <echo level="error">-> 2. Create 'shared' directories by execution of 'init:shared' command</echo>
         <echo level="error"/>
+    </target>
+
+    <!-- ============================================  -->
+    <!-- Target: ci:release:permissions:adjustment     -->
+    <!-- ============================================  -->
+    <target name="ci:release:permissions:adjustment"
+            description="Adjustment of TYPO3 permissions"
+            hidden="true">
+        <echo>-------------------------------</echo>
+        <echo>Adjustment of TYPO3 permissions</echo>
+        <echo>-------------------------------</echo>
+        <echo>Adjustment of TYPO3 permissions in ${release.next}</echo>
+        <!-- Check folderCreateMask -->
+        <if>
+            <isset property="typo3.config.folderCreateMask"/>
+            <then>
+                <property name="folderCreateMask"
+                          value="${env.typo3.config.folderCreateMask}"/>
+            </then>
+            <else>
+                <property name="folderCreateMask"
+                          value="2770"/>
+            </else>
+        </if>
+        <!-- Check fileCreateMask -->
+        <if>
+            <isset property="typo3.config.fileCreateMask"/>
+            <then>
+                <property name="fileCreateMask"
+                          value="${env.typo3.config.fileCreateMask}"/>
+            </then>
+            <else>
+                <property name="fileCreateMask"
+                          value="0660"/>
+            </else>
+        </if>
+        <!-- Execution -->
+        <exec command="find ${release.next} -type d -print0 | xargs -0 chmod ${folderCreateMask}"
+              logoutput="true"
+              passthru="true"
+              checkreturn="true"/>
+        <exec command="find ${release.next} -type f -print0 | xargs -0 chmod ${fileCreateMask}"
+              logoutput="true"
+              passthru="true"
+              checkreturn="true"/>
+        <echo>Done</echo>
     </target>
 
 </project>
