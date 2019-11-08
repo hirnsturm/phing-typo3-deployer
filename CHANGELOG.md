@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [2.1.1] - 2019-11-08
+### Add
+- [Task] Deployment fails if exec command returns error
+
 ## [2.1.0] - 2019-09-26
 ### Add
 - [Task] Adjusts TYPO3 file and dir permissions before publishing
