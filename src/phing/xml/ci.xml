@@ -146,6 +146,16 @@
         <phingcall target="hook:ci:release:before-release-new-build"/>
         <phingcall target="ci:release:permissions:adjustment"/>
         <echo/>
+        <echo>Check ${release.next}</echo>
+        <if>
+            <not>
+                <available file="${release.next}"
+                           property="next.available"/>
+            </not>
+            <then>
+                <fail message="Directory '${release.next}' does not exist!" />
+            </then>
+        </if>
         <echo>Remove ${release.previous}</echo>
         <delete dir="${release.previous}"
                 failonerror="false"/>
