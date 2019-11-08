@@ -65,7 +65,8 @@
             <else>
                 <exec command="mv ${from} ${to}"
                       logoutput="true"
-                      passthru="true"/>
+                      passthru="true"
+                      checkreturn="true"/>
             </else>
         </if>
     </target>
@@ -135,7 +136,8 @@
                         <echo>-> Target ${target} exists</echo>
                         <exec command="rm -r ${link}"
                               passthru="true"
-                              logoutput="true"/>
+                              logoutput="true"
+                              checkreturn="true"/>
                         <echo>Create symlink ${link} -> ${target}</echo>
                         <symlink link="${link}"
                                  target="${target}"

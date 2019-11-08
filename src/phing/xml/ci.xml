@@ -48,7 +48,8 @@
         <echo>Lock TYPO3 backend for editors</echo>
         <exec command="${cmd.php} ${typo3console.path.current} backend:lockforeditors"
               logoutput="true"
-              passthru="true"/>
+              passthru="true"
+              checkreturn="true"/>
         <phingcall target="hook:ci:release:before"/>
         <!---->
         <phingcall target="service:mkdir">
@@ -58,7 +59,8 @@
         <echo>Delete old ${release.next} if exist</echo>
         <exec command="rm -rf ${release.next}"
               logoutput="true"
-              passthru="true"/>
+              passthru="true"
+              checkreturn="true"/>
         <echo>Copy ${typo3.dir} to ${release.next}</echo>
         <copy todir="${release.next}"
               overwrite="true">
@@ -168,10 +170,12 @@
         <echo>Unlock TYPO3 backend</echo>
         <exec command="${cmd.php} ${typo3console.path.previous} backend:unlock"
               logoutput="true"
-              passthru="true"/>
+              passthru="true"
+              checkreturn="true"/>
         <exec command="${cmd.php} ${typo3console.path.current} backend:unlockforeditors"
               logoutput="true"
-              passthru="true"/>
+              passthru="true"
+              checkreturn="true"/>
     </target>
 
     <!-- ============================================  -->
