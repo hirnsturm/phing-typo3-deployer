@@ -16,6 +16,7 @@
 * [Properties](#properties)
     * [Globale Properties](#properties-global)
     * [Eigene Properties](#properties-custom)
+    * [Environment Properties](#properties-env)
 * [FAQ](#faq)
     * [Auflistung aller verfügbaren Kommandos](#faq-list-commands)
     * [Lokale Entwicklung](#faq-local-dev)
@@ -299,6 +300,11 @@ Eine Liste der verwendbaren Properties befindet sich in der Datei `src/phing/con
 ### Eigene Properties
 
 Eigene Properties können in der Datei `build.custom.properties` hinterlegt werden und stehen in den Hooks zur Verfügung.
+
+<a name="properties-env"></a>
+### Environment Properties
+
+In der Datei `build.env.properties` können Environment-Konfigurationen vorgenommen werden.
 
 <a name="faq"></a>
 ## FAQ
