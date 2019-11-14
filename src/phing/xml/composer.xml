@@ -134,11 +134,16 @@
         </if>
         <!-- check option no-dev -->
         <if>
-            <and>
-                <isset property="composer.no-dev"/>
-                <equals arg1="${composer.no-dev}"
-                        arg2="1" />
-            </and>
+            <or>
+                <and>
+                    <isset property="composer.no-dev"/>
+                    <equals arg1="${composer.no-dev}"
+                            arg2="1" />
+                </and>
+                <not>
+                    <isset property="composer.no-dev"/>
+                </not>
+            </or>
             <then>
                 <property name="no-dev-cmd"
                           value="--no-dev"/>
