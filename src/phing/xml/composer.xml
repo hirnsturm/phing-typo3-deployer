@@ -135,8 +135,8 @@
         <!-- check option no-dev -->
         <if>
             <and>
-                <isset property="no-dev"/>
-                <equals arg1="${no-dev}"
+                <isset property="composer.no-dev"/>
+                <equals arg1="${composer.no-dev}"
                         arg2="1" />
             </and>
             <then>
