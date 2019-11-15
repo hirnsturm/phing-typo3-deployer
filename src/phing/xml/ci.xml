@@ -46,9 +46,19 @@
         <echo>Build new release</echo>
         <echo>-----------------</echo>
         <echo>Lock TYPO3 backend for editors</echo>
-        <exec command="${cmd.php} ${typo3console.path.current} backend:lockforeditors"
-              logoutput="true"
-              passthru="true"/>
+        <if>
+            <available file="${typo3console.path.previous}"
+                       property="file.available"/>
+            <then>
+                <exec command="${cmd.php} ${typo3console.path.current} backend:lockforeditors"
+                      logoutput="true"
+                      passthru="true"
+                      checkreturn="true"/>
+            </then>
+            <else>
+                <echo>-> Nothing to do.</echo>
+            </else>
+        </if>
         <phingcall target="hook:ci:release:before"/>
         <!---->
         <phingcall target="service:mkdir">
@@ -176,15 +186,34 @@
                       value="${release.current}"/>
         </phingcall>
         <echo/>
-        <echo>Unlock TYPO3 backend</echo>
-        <exec command="${cmd.php} ${typo3console.path.previous} backend:unlock"
-              logoutput="true"
-              passthru="true"
-              checkreturn="true"/>
-        <exec command="${cmd.php} ${typo3console.path.current} backend:unlockforeditors"
-              logoutput="true"
-              passthru="true"
-              checkreturn="true"/>
+        <echo>Unlock TYPO3 backend in previous for admins</echo>
+        <if>
+            <available file="${typo3console.path.previous}"
+                       property="file.available"/>
+            <then>
+                <exec command="${cmd.php} ${typo3console.path.previous} backend:unlock"
+                      logoutput="true"
+                      passthru="true"
+                      checkreturn="true"/>
+            </then>
+            <else>
+                <echo>-> Nothing to do.</echo>
+            </else>
+        </if>
+        <echo>Unlock TYPO3 backend in current for all editors</echo>
+        <if>
+            <available file="${typo3console.path.current}"
+                       property="file.available"/>
+            <then>
+                <exec command="${cmd.php} ${typo3console.path.current} backend:unlockforeditors"
+                      logoutput="true"
+                      passthru="true"
+                      checkreturn="true"/>
+            </then>
+            <else>
+                <echo>-> Nothing to do.</echo>
+            </else>
+        </if>
     </target>
 
     <!-- ============================================  -->
