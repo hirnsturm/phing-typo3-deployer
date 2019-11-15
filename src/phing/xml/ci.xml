@@ -48,8 +48,7 @@
         <echo>Lock TYPO3 backend for editors</echo>
         <exec command="${cmd.php} ${typo3console.path.current} backend:lockforeditors"
               logoutput="true"
-              passthru="true"
-              checkreturn="true"/>
+              passthru="true"/>
         <phingcall target="hook:ci:release:before"/>
         <!---->
         <phingcall target="service:mkdir">
