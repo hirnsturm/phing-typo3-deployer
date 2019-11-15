@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [2.2.4] - 2019-11-15
+### Changed
+- [Task] CI checks whether stage exists before call typo3console
+
 ## [2.2.3] - 2019-11-15
 ### Changed
 - [Task] No error while "Lock TYPO3 backend for editors"
