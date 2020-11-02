@@ -1,0 +1,34 @@
+version: '3.7'
+
+services:
+
+  #
+  # https://hub.docker.com/r/typo3gmbh/php74
+  #
+  php:
+    build:
+      context: .
+      dockerfile: dockerfiles/Dockerfile
+    links:
+      - database
+    depends_on:
+      - database
+    user: "1000:33"
+    volumes:
+      - ../../:/opt/project/
+      - ~/.composer/cache:/root/.composer/cache
+    environment:
+      typo3DatabaseName: typo3
+      typo3DatabaseUsername: root
+      typo3DatabaseHost: database
+    working_dir: /opt/project/
+    tty: true
+
+  #
+  # https://hub.docker.com/_/mariadb/
+  #
+  database:
+    image: mariadb:10.2
+    environment:
+      MYSQL_DATABASE: typo3
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
