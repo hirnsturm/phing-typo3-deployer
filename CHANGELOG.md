@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [2.4.0] - 2020-12-30
+### Added
+- [Task] Remove unneeded requirement 'composer-plugin-api'
+- [Task] Use always system composer as default
+
 ## [2.3.0] - 2020-11-02
 ### Added
 - [Task] Improve 'git export'
