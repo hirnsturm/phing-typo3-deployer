@@ -264,7 +264,7 @@
         <echo>Adjustment of TYPO3 permissions in ${release.next}</echo>
         <!-- Check folderCreateMask -->
         <if>
-            <isset property="typo3.config.folderCreateMask"/>
+            <isset property="env.typo3.config.folderCreateMask"/>
             <then>
                 <property name="folderCreateMask"
                           value="${env.typo3.config.folderCreateMask}"/>
@@ -276,7 +276,7 @@
         </if>
         <!-- Check fileCreateMask -->
         <if>
-            <isset property="typo3.config.fileCreateMask"/>
+            <isset property="env.typo3.config.fileCreateMask"/>
             <then>
                 <property name="fileCreateMask"
                           value="${env.typo3.config.fileCreateMask}"/>
